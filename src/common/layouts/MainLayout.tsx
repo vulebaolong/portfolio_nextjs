@@ -19,13 +19,6 @@ export default function MainLayout({ children }: TProps) {
         overflow: "hidden",
       }}
     >
-      <Image
-        fill
-        src={`${basePath}bg.svg`}
-        alt={`bg.svg`}
-        priority
-        style={{ verticalAlign: "middle", position: "absolute", zIndex: "-1", objectFit: "cover" }}
-      />
       <Nav />
       <Header />
       <main>{children}</main>

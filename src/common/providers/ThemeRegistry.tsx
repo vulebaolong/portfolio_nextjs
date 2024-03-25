@@ -3,16 +3,16 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  createTheme,
-  ThemeProvider
-} from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useServerInsertedHTML } from "next/navigation";
 import { useState } from "react";
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+  },
+  typography: {
+    fontFamily: "var(--font-sora)",
   },
 });
 export default function ThemeRegistry(props: any) {

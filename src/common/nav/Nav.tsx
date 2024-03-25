@@ -21,6 +21,7 @@ export default function Nav() {
     <Stack
       component={"nav"}
       sx={{
+        zIndex: "1",
         justifyContent: "center",
         height: "100vh",
         width: "65px",
