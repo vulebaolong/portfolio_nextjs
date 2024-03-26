@@ -1,5 +1,5 @@
 import Providers from "@/common/providers/Provider";
-import { TITLE_BASE } from "@/constants/app.constants";
+import { TITLE_BASE } from "@/constants/app.constant";
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import "../common/styles/globals.css";

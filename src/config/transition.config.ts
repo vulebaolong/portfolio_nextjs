@@ -1,0 +1,1 @@
+export const delayBetweenAnimations = 1200
