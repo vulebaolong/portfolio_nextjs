@@ -1,30 +1,16 @@
 "use client";
 
 import ParticlesLinks from "@/common/particles/ParticlesLinks";
-import Transition from "@/common/Transition";
-import { ROUTER } from "@/constants/router.constant";
-import { wait } from "@/helpers/function.helper";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 const basePath = `/images/home/`;
 
 export default function Home() {
-  const [startTransition, setStartTransition] = useState(false);
-  const router = useRouter();
-  // const handleClickDownloadCv = async () => {
-  //   setStartTransition(true);
-  //   await wait(1000);
-  //   router.push(ROUTER.PROJECT);
-  //   await wait(10000);
-  //   setStartTransition(false);
-  // };
   return (
     <>
       <div>
@@ -117,20 +103,12 @@ export default function Home() {
             creative problem-solving. Every day is a new opportunity to enhance my programming
             skills and create innovative solutions.
           </Typography>
-        </Stack>
 
-        <Stack
-          sx={{
-            position: "relative",
-            zIndex: "1",
-            mt: "4rem",
-            alignItems: "center",
-          }}
-        >
           <Button
             variant="contained"
             size="large"
             sx={{
+              "mt": "4rem",
               "filter": "drop-shadow(0px 3px 10px rgba(250, 221, 220, 0.3))",
               "borderRadius": "999999px",
               "textTransform": "capitalize",
@@ -170,15 +148,8 @@ export default function Home() {
               alt="circle-start.svg"
               priority={true}
             />
-            <Box
-              // href={"/project"}
-              onClick={async () => {
-                setStartTransition(true);
-                await wait(1000);
-                router.push(ROUTER.ABOUT);
-                await wait(1000);
-                setStartTransition(false);
-              }}
+            <Link
+              href={"/project"}
               style={{
                 position: "absolute",
                 top: "0",
@@ -208,19 +179,24 @@ export default function Home() {
                   fontSize: "40px",
                 }}
               />
-            </Box>
+            </Link>
           </Box>
         </Stack>
 
-        {/* BACKGROUND */}
+        {/* BACKGROUND / PARTICLES*/}
         <Box
           sx={{
-            position: "fixed",
-            width: "100vw",
-            height: "100vh",
-            top: "0",
-            left: "0",
-            zIndex: "-1",
+            "position": "fixed",
+            "width": "100vw",
+            "height": "100vh",
+            "top": "0",
+            "left": "0",
+            "zIndex": "-1",
+            "& #ParticlesLinks": {
+              width: "100%",
+              height: "100%",
+              transform: "translateZ(0)",
+            },
           }}
         >
           <Image
@@ -264,27 +240,11 @@ export default function Home() {
               opacity: ".5",
             }}
           />
-        </Box>
 
-        {/* PARTICLES */}
-        <Box
-          sx={{
-            "position": "fixed",
-            "width": "100vw",
-            "height": "100vh",
-            "top": "0",
-            "left": "0",
-            "& div": {
-              width: "100%",
-              height: "100%",
-              transform: "translateZ(0)",
-            },
-          }}
-        >
+          {/* PARTICLES */}
           <ParticlesLinks />
         </Box>
       </div>
-      {/* {startTransition && <Transition />} */}
     </>
   );
 }
