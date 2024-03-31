@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { Engine } from "tsparticles-engine";
@@ -6,8 +8,6 @@ import { loadTrianglesPreset } from "tsparticles-preset-triangles";
 function ParticlesTriangles() {
     // init
     const particlesInit = useCallback(async (engine: Engine) => {
-        console.log(typeof engine);
-
         await loadTrianglesPreset(engine);
     }, []);
 
@@ -15,7 +15,6 @@ function ParticlesTriangles() {
 
     return (
         <Particles
-            className="w-full h-full"
             id="ParticlesTriangles"
             init={particlesInit}
             loaded={particlesLoaded}
