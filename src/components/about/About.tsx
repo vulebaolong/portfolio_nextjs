@@ -3,6 +3,8 @@
 import ParticlesTriangles from "@/common/particles/ParticlesTriangles";
 import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
+import CountUp from "react-countup";
+import Right from "./Right";
 
 const basePath = `/images/about/`;
 
@@ -25,7 +27,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
         <Box
           sx={{
             display: `grid`,
-            gridTemplateColumns: `repeat(2, 1fr)`,
+            gridTemplateColumns: `44% 56%`,
             gridTemplateRows: `repeat(1, 1fr)`,
             gap: `5rem`,
           }}
@@ -34,6 +36,8 @@ export default function About({ responInfoGitHubAction }: TProps) {
             sx={{
               gridColumn: `1`,
               pr: `20px`,
+              minWidth: `0`,
+              minHeight: `0`
             }}
           >
             <Typography
@@ -75,6 +79,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
                 justifyContent: `space-between`,
               }}
             >
+              {/* YEAR */}
               <Stack gap={`.5rem`}>
                 <Typography
                   sx={{
@@ -84,7 +89,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
                     fontWeight: `800`,
                   }}
                 >
-                  {yearsDiff}+
+                  <CountUp start={0} end={yearsDiff} duration={5} /> +
                 </Typography>
 
                 <Typography
@@ -98,10 +103,12 @@ export default function About({ responInfoGitHubAction }: TProps) {
                 </Typography>
               </Stack>
 
+              {/* DIVIDER */}
               <Box>
                 <Divider orientation={`vertical`} sx={{ height: `100%` }} />
               </Box>
 
+              {/* DAY */}
               <Stack gap={`.5rem`}>
                 <Typography
                   sx={{
@@ -111,7 +118,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
                     fontWeight: `800`,
                   }}
                 >
-                  {daysDiff}+
+                  <CountUp start={0} end={daysDiff} duration={5} /> +
                 </Typography>
 
                 <Typography
@@ -125,10 +132,12 @@ export default function About({ responInfoGitHubAction }: TProps) {
                 </Typography>
               </Stack>
 
+              {/* DIVIDER */}
               <Box>
                 <Divider orientation={`vertical`} sx={{ height: `100%` }} />
               </Box>
 
+              {/* REPO */}
               <Stack gap={`.5rem`}>
                 <Typography
                   sx={{
@@ -138,7 +147,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
                     fontWeight: `800`,
                   }}
                 >
-                  {totalRepo}+
+                  <CountUp start={0} end={totalRepo} duration={5} /> +
                 </Typography>
 
                 <Typography
@@ -153,12 +162,13 @@ export default function About({ responInfoGitHubAction }: TProps) {
               </Stack>
             </Stack>
           </Box>
+
           <Box
             sx={{
               gridColumn: `2`,
             }}
           >
-            123
+            <Right />
           </Box>
         </Box>
       </Container>
