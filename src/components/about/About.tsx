@@ -28,7 +28,6 @@ export default function About({ responInfoGitHubAction }: TProps) {
           sx={{
             display: `grid`,
             gridTemplateColumns: `44% 56%`,
-            gridTemplateRows: `1fr 1fr`,
             gap: `5rem`,
           }}
         >

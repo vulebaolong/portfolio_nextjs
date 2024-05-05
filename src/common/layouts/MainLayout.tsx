@@ -51,7 +51,9 @@ export default function MainLayout({ children }: TProps) {
 
          <Nav />
          <Header />
-         <main style={{ overflowY: `auto`, height: `calc(100vh - 90px)` }}>{children}</main>
+         <main style={{ overflowY: `auto`, height: `100vh` }}>
+            <div style={{ paddingTop: `90px`, paddingBottom: `90px` }}>{children}</div>
+         </main>
       </div>
    );
 }
