@@ -1,4 +1,5 @@
 type TResonAction<TData> = {
-  status: boolean;
-  data: TData;
+   status: boolean;
+   data: TData;
+   message: string;
 };

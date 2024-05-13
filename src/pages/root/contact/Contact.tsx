@@ -1,9 +1,10 @@
 import { Box, Container, Typography } from "@mui/material";
 import FormContact from "./FormContact";
+import { styleBoxPage } from "@/common/styles/style-blobal.mui";
 
 export default function Contact() {
    return (
-      <Box sx={{ py: `5rem` }}>
+      <Box sx={styleBoxPage}>
          <Container>
             {/* text & form */}
             <Box

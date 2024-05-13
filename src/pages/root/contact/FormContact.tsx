@@ -83,7 +83,16 @@ function FormContact() {
             helperText={contactForm.touched.message && contactForm.errors.message}
             variant="outlined"
          />
-         <Stack sx={{ flexDirection: `row`, gap: `20px`, height: `52px` }}>
+         <Stack
+            sx={{
+               flexDirection: {
+                  xs: `column`,
+                  sm: `row`,
+               },
+               gap: `20px`,
+               height: `52px`,
+            }}
+         >
             <LoadingButton
                onClick={() => {
                   contactForm.handleSubmit();
@@ -106,7 +115,14 @@ function FormContact() {
             </LoadingButton>
 
             {/* DIVIDER */}
-            <Box>
+            <Box
+               sx={{
+                  display: {
+                     xs: `none`,
+                     sm: `block`,
+                  },
+               }}
+            >
                <Divider orientation={`vertical`} sx={{ height: `100%` }} />
             </Box>
 

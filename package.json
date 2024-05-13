@@ -16,9 +16,12 @@
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.14",
     "@mui/material-nextjs": "^5.15.11",
+    "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.10",
     "formik": "^2.4.6",
     "framer-motion": "^11.0.20",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.3.4",
     "next": "14.1.4",
     "nodemailer": "^6.9.13",
     "npm": "^10.5.0",
@@ -38,6 +41,8 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/lodash": "^4.17.1",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",

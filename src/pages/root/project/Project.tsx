@@ -2,6 +2,7 @@ import ParticlesColors from "@/common/particles/ParticlesColors";
 import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import GlowCard from "./GlowCard";
+import { styleBoxPage } from "@/common/styles/style-blobal.mui";
 
 const basePath = `/images/project/`;
 
@@ -44,9 +45,12 @@ const projects = [
    },
 ];
 
-export default function Project() {
+type TProps = {
+   dataProjects: TResonAction<TProject[]>;
+};
+export default function Project({ dataProjects }: TProps) {
    return (
-      <Box sx={{ pt: `5rem` }}>
+      <Box sx={styleBoxPage}>
          <Container>
             <Box
                sx={{
@@ -98,8 +102,8 @@ export default function Project() {
                   mt: `50px`,
                }}
             >
-               {projects.map((project) => (
-                  <GlowCard key={project.id} identifier={`experience-${project.id}`}>
+               {dataProjects.status && dataProjects.data.map((project, index) => (
+                  <GlowCard key={project._id} identifier={`experience-${index + 1}`}>
                      <Box
                         sx={{
                            borderRadius: `15px`,
@@ -108,7 +112,7 @@ export default function Project() {
                      >
                         <Box sx={{ position: `relative` }}>
                            <Image
-                              src={project.imgProjectPath}
+                              src={`${basePath}${project.img_project_path}`}
                               width={0}
                               height={0}
                               sizes="100vw"
@@ -122,7 +126,7 @@ export default function Project() {
                                  bottom: `10px`,
                                  left: `10px`,
                               }}
-                              src={project.imgLogoPath}
+                              src={`${basePath}${project.img_logo_path}`}
                               width={40}
                               height={40}
                               sizes="20vw"
