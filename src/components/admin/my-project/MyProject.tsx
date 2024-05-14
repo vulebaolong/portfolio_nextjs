@@ -1,5 +1,7 @@
 import ProjectItem from "@/components/root/project/ProjectItem";
+import { ROUTER } from "@/constants/router.constant";
 import { Box } from "@mui/material";
+import Link from "next/link";
 
 const basePath = `/images/project/`;
 
@@ -18,12 +20,24 @@ export default function MyProject({ dataProjects }: TProps) {
                lg: `1fr 1fr`,
             },
             gap: `50px`,
-            mt: `50px`,
          }}
       >
          {dataProjects.status &&
             dataProjects.data?.map((project, index) => (
-               <ProjectItem project={project} index={index} key={project._id} />
+               // <Box onClick={() => {
+               //    console.log(123);
+               //  }}>
+               //    <ProjectItem project={project} index={index} key={project._id} />
+               // </Box>
+               <Link
+                  href={`${ROUTER.ADMIN.MY_PROJECT}/${project._id}`}
+                  style={{
+                     textDecoration: `none`,
+                     color: `unset`,
+                  }}
+               >
+                  <ProjectItem project={project} index={index} key={project._id} />
+               </Link>
             ))}
       </Box>
    );
