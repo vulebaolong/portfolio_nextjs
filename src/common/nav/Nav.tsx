@@ -1,6 +1,6 @@
 "use client";
 
-import { wait } from "@/helpers/function.helper";
+import { ROUTER } from "@/constants/router.constant";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -8,8 +8,6 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import { IconButton, Stack } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import Transition from "../Transition";
-import { ROUTER } from "@/constants/router.constant";
 import useResponsive from "../hooks/useResponsive";
 
 const navData = [

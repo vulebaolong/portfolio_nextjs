@@ -4,14 +4,21 @@ import ParticlesLinks from "@/common/particles/ParticlesLinks";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography, useColorScheme } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const basePath = `/images/home/`;
 
 export default function Home() {
+   const { mode, setMode } = useColorScheme();
+   useEffect(() => {
+      if (mode === `dark`) return;
+      setMode(`dark`);
+   }, []);
+
    return (
       <Box sx={{ ...styleBoxPage, pt: `90px` }}>
          <Container>

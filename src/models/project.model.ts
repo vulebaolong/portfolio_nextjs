@@ -20,15 +20,15 @@ const projectSchema = new mongoose.Schema(
          enum: ["Fe Development", "Be Development"],
       },
       platform: {
-         type: [String],
+         type: String,
          required: true,
       },
       img_project_path: {
-         type: [String],
+         type: String,
          required: true,
       },
       img_logo_path: {
-         type: [String],
+         type: String,
          required: true,
       },
    },

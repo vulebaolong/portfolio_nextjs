@@ -8,7 +8,10 @@ export const ROUTER = {
          LOGIN: `/admin/login`,
          REGISTER: `/admin/register`,
       },
-      DASHBOARD: `/admin/dashboard`,
       HOME: `/admin/`,
+      DASHBOARD: `/admin/dashboard`,
+      ABOUT: `/admin/about`,
+      MY_PROJECT: `/admin/my-project`,
+      CONTRACT: `/admin/contract`,
    },
 };

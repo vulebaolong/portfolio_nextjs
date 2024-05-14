@@ -2,9 +2,10 @@
 
 import ParticlesTriangles from "@/common/particles/ParticlesTriangles";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
-import { Box, Container } from "@mui/material";
+import { Box, Container, useColorScheme } from "@mui/material";
 import Left from "./Left";
 import Right from "./Right";
+import { useEffect } from "react";
 
 const basePath = `/images/about/`;
 
@@ -14,6 +15,11 @@ type TProps = {
 
 export default function About({ responInfoGitHubAction }: TProps) {
    const { data } = responInfoGitHubAction;
+   const { mode, setMode } = useColorScheme();
+   useEffect(() => {
+      if (mode === `dark`) return;
+      setMode(`dark`);
+   }, []);
 
    return (
       <Box sx={styleBoxPage}>

@@ -1,74 +1,26 @@
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
-import NatureRoundedIcon from "@mui/icons-material/NatureRounded";
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import { ROUTER } from "./router.constant";
 
 export const LIST_NAV = [
    {
-      title: `Balance`,
-      path: ``,
-      icon: <PeopleAltRoundedIcon />,
+      title: `About`,
+      path: ROUTER.ADMIN.ABOUT,
+      icon: <PersonRoundedIcon />,
       childrens: [],
    },
    {
-      title: `Commission`,
-      path: ``,
-      icon: <NatureRoundedIcon />,
+      title: `My Project`,
+      path: ROUTER.ADMIN.MY_PROJECT,
+      icon: <AssignmentIcon />,
       childrens: [],
    },
    {
-      title: `Nft`,
-      path: ``,
-      icon: <ConfirmationNumberIcon />,
+      title: `Contract`,
+      path: ROUTER.ADMIN.CONTRACT,
+      icon: <EmailRoundedIcon />,
       childrens: [],
-   },
-   {
-      title: `user`,
-      path: `user`,
-      icon: <PeopleAltRoundedIcon />,
-      childrens: [
-         {
-            title: `Fund`,
-            path: `admin/user/fund`,
-            icon: <PeopleAltRoundedIcon />,
-            childrens: [
-               {
-                  title: `List`,
-                  path: `admin/user/fund/list`,
-                  icon: <PeopleAltRoundedIcon />,
-                  childrens: [],
-               },
-               {
-                  title: `Deposit`,
-                  path: `admin/user/fund/deposit`,
-                  icon: <PeopleAltRoundedIcon />,
-                  childrens: [],
-               },
-               {
-                  title: `Withdraws`,
-                  path: `admin/user/fund/withdraws`,
-                  icon: <PeopleAltRoundedIcon />,
-                  childrens: [],
-               },
-               {
-                  title: `Logs`,
-                  path: `admin/user/fund/logs`,
-                  icon: <PeopleAltRoundedIcon />,
-                  childrens: [],
-               },
-            ],
-         },
-         {
-            title: `Stacking`,
-            path: `admin/user/stacking`,
-            icon: <PeopleAltRoundedIcon />,
-            childrens: [],
-         },
-         {
-            title: `Vesting`,
-            path: `admin/user/vesting`,
-            icon: <PeopleAltRoundedIcon />,
-            childrens: [],
-         },
-      ],
    },
 ];

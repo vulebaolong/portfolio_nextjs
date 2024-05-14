@@ -1,4 +1,3 @@
-
 import { ExpandMore } from "@mui/icons-material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
@@ -30,12 +29,7 @@ export default function ListItemNav({ item, pl }: TProps) {
 
    return (
       <>
-         <ListItemButton
-            // selected={pathname.includes(item.path)} // selected button parent to button children
-            selected={pathname.slice(1) === item.path} // selected just children
-            onClick={handleClick}
-            sx={{ pl: pl }}
-         >
+         <ListItemButton selected={pathname === item.path} onClick={handleClick} sx={{ pl: pl }}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.title} />
             {item.childrens.length > 0 && <>{!open ? <NavigateNextIcon /> : <ExpandMore />}</>}

@@ -27,11 +27,13 @@ export async function middleware(request: NextRequest) {
    }
 
    if (pathname === ROUTER.ADMIN.AUTH.REGISTER) {
-    const user = await getToken();
-    if (user) {
-       return NextResponse.redirect(new URL(`${ROUTER.ADMIN.DASHBOARD}`, request.url));
-    }
- }
+      const user = await getToken();
+      if (user) {
+         return NextResponse.redirect(new URL(`${ROUTER.ADMIN.DASHBOARD}`, request.url));
+      }
+   }
+
+  
 }
 
 export const config = {

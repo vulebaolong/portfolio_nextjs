@@ -1,7 +1,7 @@
 "use client";
 
 import { logoutAction } from "@/actions/logout.action";
-import { HEIGHT_HEADER } from "@/constants/app.constant";
+import { HEIGHT_HEADER, WIDTH_NAV } from "@/constants/app.constant";
 import { LIST_NAV } from "@/constants/nav.constant";
 import { ROUTER } from "@/constants/router.constant";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
@@ -9,8 +9,9 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { Divider, List, ListItemButton, ListItemIcon, ListItemText, Stack } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { Fragment } from "react";
-import ListItemNav from "./ListItemNav";
 import { toast } from "react-toastify";
+import Logo from "../logo/Logo";
+import ListItemNav from "./ListItemNav";
 
 export default function NavAdmin() {
    const router = useRouter();
@@ -25,13 +26,33 @@ export default function NavAdmin() {
          toast.error(result.message);
       }
    };
-
    return (
-      <Stack sx={{ height: `calc(100vh - ${HEIGHT_HEADER})` }}>
+      <Stack
+         sx={{
+            width: WIDTH_NAV,
+            height: `100%`,
+            borderStyle: `solid`,
+            borderColor: `rgba(204, 229, 255, 0.3)`,
+            borderWidth: `0px thin 0px 0px`,
+         }}
+      >
+         <Stack
+            sx={{
+               height: HEIGHT_HEADER,
+               width: `100%`,
+               alignItems: `center`,
+               justifyContent: `center`,
+               borderStyle: `solid`,
+               borderColor: `rgba(204, 229, 255, 0.3)`,
+               borderWidth: `0px 0px thin`,
+            }}
+         >
+            <Logo />
+         </Stack>
          {/* LIST NAV */}
          <List sx={{ overflowY: `auto` }}>
             <ListItemButton
-               selected={pathname.slice(1) === ROUTER.ADMIN.DASHBOARD}
+               selected={pathname === ROUTER.ADMIN.DASHBOARD}
                onClick={() => {
                   router.push(ROUTER.ADMIN.DASHBOARD);
                }}

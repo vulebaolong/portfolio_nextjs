@@ -1,8 +1,12 @@
+"use client";
+
 import ParticlesColors from "@/common/particles/ParticlesColors";
-import { Box, Chip, Container, Stack, Typography } from "@mui/material";
+import { Box, Chip, Container, Stack, Typography, useColorScheme } from "@mui/material";
 import Image from "next/image";
 import GlowCard from "./GlowCard";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
+import { useEffect } from "react";
+import ProjectItem from "./ProjectItem";
 
 const basePath = `/images/project/`;
 
@@ -46,9 +50,15 @@ const projects = [
 ];
 
 type TProps = {
-   dataProjects: TResonAction<TProject[]>;
+   dataProjects: TResonAction<TProject[] | null>;
 };
 export default function Project({ dataProjects }: TProps) {
+   const { mode, setMode } = useColorScheme();
+   useEffect(() => {
+      if (mode === `dark`) return;
+      setMode(`dark`);
+   }, []);
+
    return (
       <Box sx={styleBoxPage}>
          <Container>
@@ -102,88 +112,10 @@ export default function Project({ dataProjects }: TProps) {
                   mt: `50px`,
                }}
             >
-               {dataProjects.status && dataProjects.data.map((project, index) => (
-                  <GlowCard key={project._id} identifier={`experience-${index + 1}`}>
-                     <Box
-                        sx={{
-                           borderRadius: `15px`,
-                           overflow: `hidden`,
-                        }}
-                     >
-                        <Box sx={{ position: `relative` }}>
-                           <Image
-                              src={`${basePath}${project.img_project_path}`}
-                              width={0}
-                              height={0}
-                              sizes="100vw"
-                              style={{ width: "100%", height: "100%", objectFit: "cover" }} // optional
-                              alt="img project"
-                              priority={true}
-                           />
-                           <Image
-                              style={{
-                                 position: `absolute`,
-                                 bottom: `10px`,
-                                 left: `10px`,
-                              }}
-                              src={`${basePath}${project.img_logo_path}`}
-                              width={40}
-                              height={40}
-                              sizes="20vw"
-                              alt="img logo project"
-                              priority={true}
-                           />
-                        </Box>
-                        <Box sx={{ p: `20px` }}>
-                           <Stack sx={{ flexDirection: `row`, alignItems: `center`, gap: `10px` }}>
-                              <Chip
-                                 label={project.type}
-                                 sx={{ backgroundColor: `rgb(128 128 128)` }}
-                              />
-
-                              <Box
-                                 sx={{
-                                    width: `5px`,
-                                    height: `5px`,
-                                    borderRadius: `50%`,
-                                    backgroundColor: `rgb(33 128 244)`,
-                                 }}
-                              />
-
-                              <Typography
-                                 sx={{
-                                    color: `rgb(204 204 204)`,
-                                    fontWeight: `400`,
-                                    fontSize: `12px`,
-                                 }}
-                              >
-                                 {project.platform}
-                              </Typography>
-                           </Stack>
-
-                           <Typography
-                              sx={{
-                                 mt: `20px`,
-                                 fontWeight: `700`,
-                                 fontSize: `20px`,
-                              }}
-                           >
-                              {project.title}
-                           </Typography>
-                           <Typography
-                              sx={{
-                                 mt: `10px`,
-                                 color: `rgb(204 204 204)`,
-                                 fontWeight: `400`,
-                                 fontSize: `12px`,
-                              }}
-                           >
-                              {project.description}
-                           </Typography>
-                        </Box>
-                     </Box>
-                  </GlowCard>
-               ))}
+               {dataProjects.status &&
+                  dataProjects.data?.map((project, index) => (
+                     <ProjectItem project={project} index={index} key={project._id} />
+                  ))}
             </Box>
          </Container>
 
