@@ -1,8 +1,8 @@
 "use client";
 
-import { loginAction } from "@/actions/login/login.action";
+import { loginAction } from "@/actions/login.action";
 import { ROUTER } from "@/constants/router.constant";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -27,9 +27,11 @@ export default function Login() {
 
          console.log(result);
 
-         toast.success(result.message)
+         if (!result.status) return toast.error(result.message);
 
-         router.push(ROUTER.ADMIN.HOME);
+         toast.success(result.message);
+
+         router.push(ROUTER.ADMIN.DASHBOARD);
       },
    });
    return (
@@ -48,9 +50,28 @@ export default function Login() {
             label="passwork"
             variant="outlined"
          />
-         <Button type="submit" variant="contained">
-            Login
-         </Button>
+         <Box>
+            <Button sx={{ width: `100%` }} type="submit" variant="contained">
+               Login
+            </Button>
+            <Typography
+               onClick={() => {
+                  router.push(ROUTER.ADMIN.AUTH.REGISTER);
+               }}
+               sx={{
+                  "mt": `10px`,
+                  "color": `#90caf9`,
+                  "cursor": `pointer`,
+                  "textAlign": `center`,
+                  "&:hover": {
+                     color: `#90caf9cc`,
+                  },
+                  "transition": `color .3s`,
+               }}
+            >
+               Register
+            </Typography>
+         </Box>
       </Stack>
    );
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import { registerAction } from "@/actions/register/register.action";
+import { registerAction } from "@/actions/register.action";
 import { ROUTER } from "@/constants/router.constant";
-import { Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ export default function Register() {
 
          if (!reuslt.data) return toast.error(reuslt.message);
 
-         toast.success(reuslt.message)
+         toast.success(reuslt.message);
 
          router.push(ROUTER.ADMIN.AUTH.LOGIN);
       },
@@ -58,9 +58,28 @@ export default function Register() {
             label="passwork"
             variant="outlined"
          />
-         <Button type="submit" variant="contained">
-            Register
-         </Button>
+         <Box>
+            <Button sx={{ width: `100%` }} type="submit" variant="contained">
+               Register
+            </Button>
+            <Typography
+               onClick={() => {
+                  router.push(ROUTER.ADMIN.AUTH.LOGIN);
+               }}
+               sx={{
+                  "mt": `10px`,
+                  "color": `#90caf9`,
+                  "cursor": `pointer`,
+                  "textAlign": `center`,
+                  "&:hover": {
+                     color: `#90caf9cc`,
+                  },
+                  "transition": `color .3s`,
+               }}
+            >
+               Login
+            </Typography>
+         </Box>
       </Stack>
    );
 }

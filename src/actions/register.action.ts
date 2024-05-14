@@ -1,7 +1,7 @@
 "use server";
 
 import { getInfoData, responAction } from "@/helpers/function.helper";
-import MongooseClient from "@/libs/mongodb";
+import MongooseClient from "@/libs/mongodb.lib";
 import Users from "@/models/users.model";
 import bcryptjs from "bcryptjs";
 import _ from "lodash";

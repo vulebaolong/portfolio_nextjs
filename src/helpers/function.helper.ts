@@ -8,12 +8,16 @@ export const wait = function (miliseconds: number) {
    });
 };
 
+export const jsonParse = (data: any) => {
+   return JSON.parse(JSON.stringify(data));
+};
+
 export const responAction = <T>(
    status: boolean,
    data: T | null,
    message: string = ``
 ): TResonAction<T | null> => {
-   return { status, data, message };
+   return jsonParse({ status, data, message });
 };
 
 type TGetInfoData = {
@@ -30,3 +34,4 @@ type TGetInfoData = {
 export const getInfoData = ({ fields = [], object = {} }: TGetInfoData): object => {
    return _.pick(object, fields);
 };
+

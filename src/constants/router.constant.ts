@@ -8,6 +8,7 @@ export const ROUTER = {
          LOGIN: `/admin/login`,
          REGISTER: `/admin/register`,
       },
+      DASHBOARD: `/admin/dashboard`,
       HOME: `/admin/`,
    },
 };

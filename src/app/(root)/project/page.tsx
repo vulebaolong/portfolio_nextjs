@@ -1,4 +1,4 @@
-import { getProjectsAction } from "@/actions/project/project.action";
+import { getProjectsAction } from "@/actions/project.action";
 import Project from "@/components/root/project/Project";
 
 export default async function ProjectPage() {

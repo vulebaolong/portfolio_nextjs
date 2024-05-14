@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { sendMailAction } from "@/actions/contract/contract.action";
+import { sendMailAction } from "@/actions/contract.action";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 

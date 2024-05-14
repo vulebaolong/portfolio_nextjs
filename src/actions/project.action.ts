@@ -1,7 +1,7 @@
 "use server";
 
 import { responAction } from "@/helpers/function.helper";
-import MongooseClient from "@/libs/mongodb";
+import MongooseClient from "@/libs/mongodb.lib";
 import Projects from "@/models/project.model";
 
 export const getProjectsAction = async (): Promise<TResonAction<TProject[]>> => {

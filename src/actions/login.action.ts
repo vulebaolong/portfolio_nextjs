@@ -1,7 +1,8 @@
 "use server";
 
 import { responAction } from "@/helpers/function.helper";
-import MongooseClient from "@/libs/mongodb";
+import { setToken } from "@/libs/auth.lib";
+import MongooseClient from "@/libs/mongodb.lib";
 import Users from "@/models/users.model";
 import bcryptjs from "bcryptjs";
 import _ from "lodash";
@@ -23,13 +24,14 @@ export const loginAction = async (payload: TPayload): Promise<TResonAction<TProj
       const match = bcryptjs.compareSync(password, exitsUser.password);
       if (!match) throw new Error(`Email or password is incorrect`);
 
+      await setToken(exitsUser._id.toString());
+
       return responAction(
          true,
          _.pick(exitsUser, [`_id`, `name`, `email`, `createdAt`, `updatedAt`]) as any,
          `Login Successfuly.`
       );
    } catch (error: any) {
-      console.log(error.message);
       return responAction<null>(false, null, error.message);
    }
 };

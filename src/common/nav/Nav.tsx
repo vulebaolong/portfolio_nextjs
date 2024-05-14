@@ -54,11 +54,7 @@ export default function Nav() {
                      return (
                         <IconButton
                            onClick={async () => {
-                              // setStartTransition(true);
-                              // await wait(1000);
                               router.push(item.path);
-                              // await wait(1000);
-                              // setStartTransition(false);
                            }}
                            key={index}
                            color={`${item.path === pathName ? "error" : "default"}`}
