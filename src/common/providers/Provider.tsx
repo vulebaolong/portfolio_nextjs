@@ -2,7 +2,7 @@
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeRegistry from "./ThemeRegistry";
-import PageAnimatePresence from "@/common/hoc/PageAnimatePresence";
+import PageAnimatePresence from "@/common/providers/PageAnimatePresence";
 import ToastProvider from "./ToastProvider";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {

@@ -10,7 +10,7 @@ export default function Contact() {
    useEffect(() => {
       if (mode === `dark`) return;
       setMode(`dark`);
-   }, []);
+   }, [mode, setMode]);
 
    return (
       <Box sx={styleBoxPage}>

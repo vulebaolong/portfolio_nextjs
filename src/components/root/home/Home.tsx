@@ -17,7 +17,7 @@ export default function Home() {
    useEffect(() => {
       if (mode === `dark`) return;
       setMode(`dark`);
-   }, []);
+   }, [mode, setMode]);
 
    return (
       <Box sx={{ ...styleBoxPage, pt: `90px` }}>

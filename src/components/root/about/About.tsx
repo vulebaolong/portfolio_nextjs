@@ -19,7 +19,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
    useEffect(() => {
       if (mode === `dark`) return;
       setMode(`dark`);
-   }, []);
+   }, [mode, setMode]);
 
    return (
       <Box sx={styleBoxPage}>

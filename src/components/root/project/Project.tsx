@@ -57,7 +57,7 @@ export default function Project({ dataProjects }: TProps) {
    useEffect(() => {
       if (mode === `dark`) return;
       setMode(`dark`);
-   }, []);
+   }, [mode, setMode]);
 
    return (
       <Box sx={styleBoxPage}>
