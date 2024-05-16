@@ -9,6 +9,7 @@ import { useState } from "react";
 import MyProjectCreate from "./MyProjectCreate";
 import DrawerMyProjectCreate from "@/common/drawers/DrawerMyProjectCreate";
 import DrawerMyProjectEdit from "@/common/drawers/DrawerMyProjectEdit";
+import { TProject } from "@/types/respon/project.type";
 
 const basePath = `/images/project/`;
 
@@ -33,6 +34,7 @@ export default function MyProject({ dataProjects }: TProps) {
             onClick={handleOpenDrawerMyProjectCreate}
             size="large"
             sx={{ position: `fixed`, zIndex: `10`, bottom: `20px`, right: `20px` }}
+            color="info"
          >
             <AddCircleOutlineRoundedIcon />
          </IconButton>
@@ -50,13 +52,13 @@ export default function MyProject({ dataProjects }: TProps) {
             {dataProjects.status &&
                dataProjects.data?.map((project, index) => (
                   <Box
-                     key={project._id}
+                     key={project._id.toString()}
                      onClick={() => {
                         handleOpenDrawerMyProjectEdit();
                         setDataMyProjectEdit(project);
                      }}
                   >
-                     <ProjectItem project={project} index={index} key={project._id} />
+                     <ProjectItem project={project} index={index} />
                   </Box>
                ))}
          </Box>

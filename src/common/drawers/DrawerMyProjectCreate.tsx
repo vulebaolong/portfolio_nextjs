@@ -28,7 +28,10 @@ type TProps = {
 const heightHeader = `70px`;
 const heightFooter = `80px`;
 
-export default function DrawerMyProjectCreate({ openDrawerMyProjectCreate, handleCloseDrawerMyProjectCreate }: TProps) {
+export default function DrawerMyProjectCreate({
+   openDrawerMyProjectCreate,
+   handleCloseDrawerMyProjectCreate,
+}: TProps) {
    const [loading, setLoading] = useState<boolean>(false);
 
    const contactForm = useFormik({
@@ -65,7 +68,11 @@ export default function DrawerMyProjectCreate({ openDrawerMyProjectCreate, handl
    });
 
    return (
-      <Drawer anchor={`right`} open={openDrawerMyProjectCreate} onClose={handleCloseDrawerMyProjectCreate}>
+      <Drawer
+         anchor={`right`}
+         open={openDrawerMyProjectCreate}
+         onClose={handleCloseDrawerMyProjectCreate}
+      >
          <Box
             sx={{ width: { xs: `90vw`, lg: `500px` }, position: `relative`, height: `100%` }}
             role="presentation"
@@ -73,21 +80,23 @@ export default function DrawerMyProjectCreate({ openDrawerMyProjectCreate, handl
             autoComplete="false"
             onSubmit={contactForm.handleSubmit}
          >
+            {/* header */}
             <Stack
                sx={{
                   height: `${heightHeader}`,
                   alignItems: `start`,
                   justifyContent: `center`,
-                  p: `20px`,
+                  p: `20px 20px 10px`,
                }}
             >
                <Typography sx={{ fontSize: `20px`, fontWeight: `700` }}>Create Project</Typography>
             </Stack>
 
+            {/* body */}
             <Stack
                sx={{
                   height: `calc(100vh - (${heightHeader} + ${heightFooter}))`,
-                  px: `20px`,
+                  p: `10px 20px`,
                   rowGap: `20px`,
                   overflowY: `auto`,
                }}
@@ -178,7 +187,15 @@ export default function DrawerMyProjectCreate({ openDrawerMyProjectCreate, handl
                />
             </Stack>
 
-            <Stack sx={{ height: `${heightFooter}`, flexDirection: `row`, p: `20px`, gap: `20px` }}>
+            {/* footer */}
+            <Stack
+               sx={{
+                  height: `${heightFooter}`,
+                  flexDirection: `row`,
+                  p: `10px 20px 20px`,
+                  gap: `20px`,
+               }}
+            >
                <Button onClick={handleCloseDrawerMyProjectCreate}>Cancel</Button>
 
                <LoadingButton

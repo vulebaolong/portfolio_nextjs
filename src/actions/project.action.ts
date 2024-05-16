@@ -1,8 +1,12 @@
 "use server";
 
+import { ROUTER } from "@/constants/router.constant";
 import { responAction } from "@/helpers/function.helper";
 import MongooseClient from "@/libs/mongodb.lib";
 import Projects from "@/models/project.model";
+import { TProject } from "@/types/respon/project.type";
+import { ObjectId } from "mongoose";
+import { revalidatePath } from "next/cache";
 
 export const getProjectsAction = async (): Promise<TResonAction<TProject[] | null>> => {
    try {
@@ -23,8 +27,6 @@ export const createProjectAction = async (
    try {
       await MongooseClient();
 
-      console.log({ title, description, platform });
-
       const newProjects = await Projects.create({
          title,
          description,
@@ -34,7 +36,25 @@ export const createProjectAction = async (
          img_logo_path,
       });
 
+      revalidatePath(`${ROUTER.PROJECT}`);
+
       return responAction(true, newProjects as any, `Create project successfuly`);
+   } catch (error: any) {
+      console.log(error);
+      return responAction(false, null, error.message);
+   }
+};
+
+export const deleteProject = async (projectId: ObjectId): Promise<TResonAction<null>> => {
+   try {
+      await MongooseClient();
+
+      const deleteResult = await Projects.deleteOne({ _id: projectId });
+      if(deleteResult.deletedCount === 0) throw new Error(`Delete failed`)
+
+      revalidatePath(`${ROUTER.PROJECT}`);
+
+      return responAction(true, null, `Delete project successfuly`);
    } catch (error: any) {
       console.log(error);
       return responAction(false, null, error.message);

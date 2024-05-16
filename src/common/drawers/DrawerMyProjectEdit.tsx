@@ -1,9 +1,21 @@
 "use client";
 
-import { createProjectAction } from "@/actions/project.action";
+import { createProjectAction, deleteProject } from "@/actions/project.action";
+import { TProject } from "@/types/respon/project.type";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Box, Button, Drawer, MenuItem, Stack, TextField, Typography } from "@mui/material";
+import {
+   Box,
+   Button,
+   CircularProgress,
+   Drawer,
+   IconButton,
+   MenuItem,
+   Stack,
+   TextField,
+   Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -35,6 +47,7 @@ export default function DrawerMyProjectEdit({
    dataMyProjectEdit,
 }: TProps) {
    const [loading, setLoading] = useState<boolean>(false);
+   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
 
    const contactForm = useFormik({
       enableReinitialize: true,
@@ -70,6 +83,18 @@ export default function DrawerMyProjectEdit({
       },
    });
 
+   const handleDeleteProject = async () => {
+      setLoadingDelete(true);
+      const reuslt = await deleteProject(dataMyProjectEdit._id);
+      setLoadingDelete(false);
+
+      if (reuslt.status === false) return toast.error(reuslt.message);
+
+      toast.success(reuslt.message);
+      contactForm.resetForm();
+      handleCloseDrawerMyProjectEdit();
+   };
+
    return (
       <Drawer
          anchor={`right`}
@@ -83,27 +108,37 @@ export default function DrawerMyProjectEdit({
             autoComplete="false"
             onSubmit={contactForm.handleSubmit}
          >
+            {/* header */}
             <Stack
                sx={{
                   height: `${heightHeader}`,
-                  alignItems: `start`,
-                  justifyContent: `center`,
+                  alignItems: `center`,
+                  justifyContent: `space-between`,
                   p: `20px 20px 10px`,
+                  flexDirection: `row`,
                }}
             >
                <Typography sx={{ fontSize: `20px`, fontWeight: `700` }}>
                   <span>Edit Project </span>
                   <span style={{ fontWeight: `400`, fontSize: `14px` }}>
-                     - {dataMyProjectEdit._id}
+                     - {dataMyProjectEdit._id.toString()}
                   </span>
                </Typography>
+               <IconButton
+                  disabled={loadingDelete}
+                  color="error"
+                  size="large"
+                  onClick={handleDeleteProject}
+               >
+                  {loadingDelete ? <CircularProgress size={20} /> : <DeleteRoundedIcon />}
+               </IconButton>
             </Stack>
 
+            {/* body */}
             <Stack
                sx={{
                   height: `calc(100vh - (${heightHeader} + ${heightFooter}))`,
-                  px: `20px`,
-                  py: `10px`,
+                  p: `10px 20px`,
                   rowGap: `20px`,
                   overflowY: `auto`,
                }}
@@ -194,6 +229,7 @@ export default function DrawerMyProjectEdit({
                />
             </Stack>
 
+            {/* footer */}
             <Stack
                sx={{
                   height: `${heightFooter}`,

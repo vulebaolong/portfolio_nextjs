@@ -1,5 +1,7 @@
-type TProject = {
-   _id: string;
+import { ObjectId } from "mongoose";
+
+export type TProject = {
+   _id: ObjectId;
    title: string;
    description: string;
    type: string;

@@ -7,6 +7,7 @@ import GlowCard from "./GlowCard";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
 import { useEffect } from "react";
 import ProjectItem from "./ProjectItem";
+import { TProject } from "@/types/respon/project.type";
 
 const basePath = `/images/project/`;
 
@@ -114,7 +115,7 @@ export default function Project({ dataProjects }: TProps) {
             >
                {dataProjects.status &&
                   dataProjects.data?.map((project, index) => (
-                     <ProjectItem project={project} index={index} key={project._id} />
+                     <ProjectItem project={project} index={index} key={project._id.toString()} />
                   ))}
             </Box>
          </Container>
