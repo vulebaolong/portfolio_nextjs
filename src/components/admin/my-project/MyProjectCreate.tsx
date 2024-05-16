@@ -3,7 +3,7 @@
 import { createProjectAction } from "@/actions/project.action";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Button, MenuItem, Stack, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -20,7 +20,14 @@ const currencies = [
    },
 ];
 
-export default function MyProjectCreate() {
+type TProps = {
+   toggleDrawer: (newOpen: boolean) => () => void;
+};
+
+const heightHeader = `70px`;
+const heightFooter = `80px`;
+
+export default function MyProjectCreate({ toggleDrawer }: TProps) {
    const [loading, setLoading] = useState<boolean>(false);
 
    const contactForm = useFormik({
@@ -57,89 +64,120 @@ export default function MyProjectCreate() {
    });
 
    return (
-      <Stack component="form" autoComplete="false" onSubmit={contactForm.handleSubmit} rowGap={3}>
-         <TextField
-            sx={{ width: `100%` }}
-            autoComplete="title"
-            label="Title"
-            name="title"
-            value={contactForm.values.title}
-            onChange={contactForm.handleChange}
-            error={contactForm.touched.title && contactForm.errors.title !== undefined}
-            helperText={contactForm.touched.title && contactForm.errors.title}
-            variant="outlined"
-         />
-         <TextField
-            sx={{ width: `100%` }}
-            autoComplete="platform"
-            label="Platform"
-            name="platform"
-            value={contactForm.values.platform}
-            onChange={contactForm.handleChange}
-            error={contactForm.touched.platform && contactForm.errors.platform !== undefined}
-            helperText={contactForm.touched.platform && contactForm.errors.platform}
-            variant="outlined"
-         />
-         <TextField
-            sx={{ width: `100%` }}
-            select
-            label="Type"
-            name="type"
-            onChange={contactForm.handleChange}
-            value={contactForm.values.type}
-            error={contactForm.touched.type && contactForm.errors.type !== undefined}
-            helperText={contactForm.touched.type && contactForm.errors.type}
+      <Box
+         sx={{ width: { xs: `90vw`, lg: `500px` }, position: `relative`, height: `100%` }}
+         role="presentation"
+         component="form"
+         autoComplete="false"
+         onSubmit={contactForm.handleSubmit}
+      >
+         <Stack
+            sx={{
+               height: `${heightHeader}`,
+               alignItems: `start`,
+               justifyContent: `center`,
+               p: `20px`,
+            }}
          >
-            {currencies.map((option) => (
-               <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-               </MenuItem>
-            ))}
-         </TextField>
-         <TextField
-            sx={{ width: `100%` }}
-            multiline
-            rows={10}
-            autoComplete="description"
-            label="Description"
-            name="description"
-            value={contactForm.values.description}
-            onChange={contactForm.handleChange}
-            error={contactForm.touched.description && contactForm.errors.description !== undefined}
-            helperText={contactForm.touched.description && contactForm.errors.description}
-            variant="outlined"
-         />
+            <Typography sx={{ fontSize: `20px`, fontWeight: `700` }}>Create Project</Typography>
+         </Stack>
 
-         <TextField
-            sx={{ width: `100%` }}
-            autoComplete="img_project_path"
-            label="Image Project"
-            name="img_project_path"
-            value={contactForm.values.img_project_path}
-            onChange={contactForm.handleChange}
-            error={
-               contactForm.touched.img_project_path &&
-               contactForm.errors.img_project_path !== undefined
-            }
-            helperText={contactForm.touched.img_project_path && contactForm.errors.img_project_path}
-            variant="outlined"
-         />
-         <TextField
-            sx={{ width: `100%` }}
-            autoComplete="img_logo_path"
-            label="Image Logo"
-            name="img_logo_path"
-            value={contactForm.values.img_logo_path}
-            onChange={contactForm.handleChange}
-            error={
-               contactForm.touched.img_logo_path && contactForm.errors.img_logo_path !== undefined
-            }
-            helperText={contactForm.touched.img_logo_path && contactForm.errors.img_logo_path}
-            variant="outlined"
-         />
+         <Stack
+            sx={{
+               height: `calc(100vh - (${heightHeader} + ${heightFooter}))`,
+               px: `20px`,
+               rowGap: `20px`,
+               overflowY: `auto`,
+            }}
+         >
+            <TextField
+               sx={{ width: `100%` }}
+               autoComplete="title"
+               label="Title"
+               name="title"
+               value={contactForm.values.title}
+               onChange={contactForm.handleChange}
+               error={contactForm.touched.title && contactForm.errors.title !== undefined}
+               helperText={contactForm.touched.title && contactForm.errors.title}
+               variant="outlined"
+            />
+            <TextField
+               sx={{ width: `100%` }}
+               autoComplete="platform"
+               label="Platform"
+               name="platform"
+               value={contactForm.values.platform}
+               onChange={contactForm.handleChange}
+               error={contactForm.touched.platform && contactForm.errors.platform !== undefined}
+               helperText={contactForm.touched.platform && contactForm.errors.platform}
+               variant="outlined"
+            />
+            <TextField
+               sx={{ width: `100%` }}
+               select
+               label="Type"
+               name="type"
+               onChange={contactForm.handleChange}
+               value={contactForm.values.type}
+               error={contactForm.touched.type && contactForm.errors.type !== undefined}
+               helperText={contactForm.touched.type && contactForm.errors.type}
+            >
+               {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                     {option.label}
+                  </MenuItem>
+               ))}
+            </TextField>
+            <TextField
+               sx={{ width: `100%` }}
+               multiline
+               rows={10}
+               autoComplete="description"
+               label="Description"
+               name="description"
+               value={contactForm.values.description}
+               onChange={contactForm.handleChange}
+               error={
+                  contactForm.touched.description && contactForm.errors.description !== undefined
+               }
+               helperText={contactForm.touched.description && contactForm.errors.description}
+               variant="outlined"
+            />
 
-         <Stack sx={{ flexDirection: `row`, gap: `20px` }}>
-            <Button>Cancel</Button>
+            <TextField
+               sx={{ width: `100%` }}
+               autoComplete="img_project_path"
+               label="Image Project"
+               name="img_project_path"
+               value={contactForm.values.img_project_path}
+               onChange={contactForm.handleChange}
+               error={
+                  contactForm.touched.img_project_path &&
+                  contactForm.errors.img_project_path !== undefined
+               }
+               helperText={
+                  contactForm.touched.img_project_path && contactForm.errors.img_project_path
+               }
+               variant="outlined"
+            />
+            <TextField
+               sx={{ width: `100%` }}
+               autoComplete="img_logo_path"
+               label="Image Logo"
+               name="img_logo_path"
+               value={contactForm.values.img_logo_path}
+               onChange={contactForm.handleChange}
+               error={
+                  contactForm.touched.img_logo_path &&
+                  contactForm.errors.img_logo_path !== undefined
+               }
+               helperText={contactForm.touched.img_logo_path && contactForm.errors.img_logo_path}
+               variant="outlined"
+            />
+         </Stack>
+
+         <Stack sx={{ height: `${heightFooter}`, flexDirection: `row`, p: `20px`, gap: `20px` }}>
+            <Button onClick={toggleDrawer(false)}>Cancel</Button>
 
             <LoadingButton
                onClick={() => {
@@ -154,6 +192,6 @@ export default function MyProjectCreate() {
                Create
             </LoadingButton>
          </Stack>
-      </Stack>
+      </Box>
    );
 }
