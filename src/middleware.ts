@@ -7,10 +7,15 @@ export async function middleware(request: NextRequest) {
 
    console.log(pathname);
 
-   const arrPathProtect = [`${ROUTER.ADMIN.DASHBOARD}`];
+   const arrPathProtect = [
+      `${ROUTER.ADMIN.DASHBOARD}`,
+      `${ROUTER.ADMIN.ABOUT}`,
+      `${ROUTER.ADMIN.MY_PROJECT}`,
+      `${ROUTER.ADMIN.CONTRACT}`,
+   ];
 
    if (arrPathProtect.includes(pathname)) {
-      console.log("kiểm tra" + pathname);
+      console.log("check: " + pathname);
 
       const user = await getToken();
       console.log("user", user);
@@ -32,8 +37,6 @@ export async function middleware(request: NextRequest) {
          return NextResponse.redirect(new URL(`${ROUTER.ADMIN.DASHBOARD}`, request.url));
       }
    }
-
-  
 }
 
 export const config = {

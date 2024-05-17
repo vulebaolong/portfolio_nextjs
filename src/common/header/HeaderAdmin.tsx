@@ -26,7 +26,7 @@ export default function HeaderAdmin() {
                padding: `8px 16px`,
                height: HEIGHT_HEADER,
                position: `fixed`,
-               zIndex: `1`,
+               zIndex: `2`,
                top: `0`,
                right: `0`,
                width: {
