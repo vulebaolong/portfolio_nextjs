@@ -29,6 +29,7 @@ export const createProjectAction = async (
       const newProjects = await Projects.create(payload);
 
       revalidatePath(`${ROUTER.PROJECT}`);
+      revalidatePath(`${ROUTER.ADMIN.MY_PROJECT}`);
 
       return responAction(true, newProjects as any, `Create project successfuly`);
    } catch (error: any) {
@@ -45,6 +46,7 @@ export const deleteProject = async (projectId: ObjectId): Promise<TResonAction<n
       if (deleteResult.deletedCount === 0) throw new Error(`Delete failed`);
 
       revalidatePath(`${ROUTER.PROJECT}`);
+      revalidatePath(`${ROUTER.ADMIN.MY_PROJECT}`);
 
       return responAction(true, null, `Delete project successfuly`);
    } catch (error: any) {
