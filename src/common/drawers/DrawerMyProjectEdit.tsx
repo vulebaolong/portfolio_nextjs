@@ -1,6 +1,8 @@
 "use client";
 
-import { createProjectAction, deleteProject } from "@/actions/project.action";
+import { deleteProject } from "@/actions/project.action";
+import { FB_FOLDER_LOGO, FB_FOLDER_PROJECT } from "@/constants/firebase.constant";
+import { deleteWithFirebase } from "@/libs/firebase.lib";
 import { TProject } from "@/types/respon/project.type";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
@@ -70,29 +72,35 @@ export default function DrawerMyProjectEdit({
       onSubmit: async (valuesRaw) => {
          console.log(valuesRaw);
 
-         setLoading(true);
-         const result = await createProjectAction(valuesRaw);
-         console.log(result);
-         setLoading(false);
+         // setLoading(true);
+         // const result = await createProjectAction(valuesRaw);
+         // console.log(result);
+         // setLoading(false);
 
-         if (!result.status) return toast.error(result.message);
+         // if (!result.status) return toast.error(result.message);
 
-         contactForm.resetForm();
+         // contactForm.resetForm();
 
-         toast.success(result.message);
+         // toast.success(result.message);
       },
    });
 
    const handleDeleteProject = async () => {
       setLoadingDelete(true);
+
+      deleteWithFirebase(dataMyProjectEdit.img_project_name, FB_FOLDER_PROJECT);
+
+      deleteWithFirebase(dataMyProjectEdit.img_logo_name, FB_FOLDER_LOGO);
+
       const reuslt = await deleteProject(dataMyProjectEdit._id);
       setLoadingDelete(false);
 
       if (reuslt.status === false) return toast.error(reuslt.message);
 
-      toast.success(reuslt.message);
       contactForm.resetForm();
       handleCloseDrawerMyProjectEdit();
+      
+      toast.success(reuslt.message);
    };
 
    return (

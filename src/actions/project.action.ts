@@ -4,7 +4,7 @@ import { ROUTER } from "@/constants/router.constant";
 import { responAction } from "@/helpers/function.helper";
 import MongooseClient from "@/libs/mongodb.lib";
 import Projects from "@/models/project.model";
-import { TProject } from "@/types/respon/project.type";
+import { TPayloadProject, TProject } from "@/types/respon/project.type";
 import { ObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
 
@@ -21,20 +21,12 @@ export const getProjectsAction = async (): Promise<TResonAction<TProject[] | nul
 };
 
 export const createProjectAction = async (
-   payload: any
+   payload: TPayloadProject
 ): Promise<TResonAction<TProject[] | null>> => {
-   const { title, description, platform, type, img_project_path, img_logo_path } = payload;
    try {
       await MongooseClient();
 
-      const newProjects = await Projects.create({
-         title,
-         description,
-         platform,
-         type,
-         img_project_path,
-         img_logo_path,
-      });
+      const newProjects = await Projects.create(payload);
 
       revalidatePath(`${ROUTER.PROJECT}`);
 
@@ -50,7 +42,7 @@ export const deleteProject = async (projectId: ObjectId): Promise<TResonAction<n
       await MongooseClient();
 
       const deleteResult = await Projects.deleteOne({ _id: projectId });
-      if(deleteResult.deletedCount === 0) throw new Error(`Delete failed`)
+      if (deleteResult.deletedCount === 0) throw new Error(`Delete failed`);
 
       revalidatePath(`${ROUTER.PROJECT}`);
 

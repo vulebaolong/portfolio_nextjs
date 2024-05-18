@@ -15,7 +15,7 @@ const projectSchema = new mongoose.Schema(
          required: true,
       },
       type: {
-         type: [String],
+         type: String,
          required: true,
          enum: ["Fe Development", "Be Development"],
       },
@@ -23,11 +23,11 @@ const projectSchema = new mongoose.Schema(
          type: String,
          required: true,
       },
-      img_project_path: {
+      img_project_name: {
          type: String,
          required: true,
       },
-      img_logo_path: {
+      img_logo_name: {
          type: String,
          required: true,
       },

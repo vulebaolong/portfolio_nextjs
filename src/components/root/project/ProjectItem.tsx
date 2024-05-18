@@ -1,7 +1,11 @@
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import GlowCard from "./GlowCard";
 import Image from "next/image";
+import { TProject } from "@/types/respon/project.type";
+import { FB_BASE, FB_FOLDER_LOGO, FB_FOLDER_PROJECT } from "@/constants/firebase.constant";
+
 const basePath = `/images/project/`;
+
 type TProps = {
    project: TProject;
    index: number;
@@ -17,7 +21,7 @@ export default function ProjectItem({ project, index }: TProps) {
          >
             <Box sx={{ position: `relative` }}>
                <Image
-                  src={`${basePath}${project.img_project_path}`}
+                  src={`${FB_BASE}${FB_FOLDER_PROJECT}%2F${project.img_project_name}?alt=media`}
                   width={0}
                   height={0}
                   sizes="100vw"
@@ -31,7 +35,7 @@ export default function ProjectItem({ project, index }: TProps) {
                      bottom: `10px`,
                      left: `10px`,
                   }}
-                  src={`${basePath}${project.img_logo_path}`}
+                  src={`${FB_BASE}${FB_FOLDER_LOGO}%2F${project.img_logo_name}?alt=media`}
                   width={40}
                   height={40}
                   sizes="20vw"

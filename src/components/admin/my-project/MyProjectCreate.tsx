@@ -36,16 +36,16 @@ export default function MyProjectCreate({ toggleDrawer }: TProps) {
          description: ``,
          platform: ``,
          type: ``,
-         img_project_path: ``,
-         img_logo_path: ``,
+         img_project_name: ``,
+         img_logo_name: ``,
       },
       validationSchema: Yup.object().shape({
          title: Yup.string().trim().required(`Name is required`),
          description: Yup.string().trim().required(`Description is required`),
          platform: Yup.string().trim().required(`Platform is required`),
          type: Yup.string().trim().required(`Type is required`),
-         img_project_path: Yup.string().trim().required(`Image project is required`),
-         img_logo_path: Yup.string().trim().required(`Image logo is required`),
+         img_project_name: Yup.string().trim().required(`Image project is required`),
+         img_logo_name: Yup.string().trim().required(`Image logo is required`),
       }),
       onSubmit: async (valuesRaw) => {
          console.log(valuesRaw);
@@ -146,32 +146,32 @@ export default function MyProjectCreate({ toggleDrawer }: TProps) {
 
             <TextField
                sx={{ width: `100%` }}
-               autoComplete="img_project_path"
+               autoComplete="img_project_name"
                label="Image Project"
-               name="img_project_path"
-               value={contactForm.values.img_project_path}
+               name="img_project_name"
+               value={contactForm.values.img_project_name}
                onChange={contactForm.handleChange}
                error={
-                  contactForm.touched.img_project_path &&
-                  contactForm.errors.img_project_path !== undefined
+                  contactForm.touched.img_project_name &&
+                  contactForm.errors.img_project_name !== undefined
                }
                helperText={
-                  contactForm.touched.img_project_path && contactForm.errors.img_project_path
+                  contactForm.touched.img_project_name && contactForm.errors.img_project_name
                }
                variant="outlined"
             />
             <TextField
                sx={{ width: `100%` }}
-               autoComplete="img_logo_path"
+               autoComplete="img_logo_name"
                label="Image Logo"
-               name="img_logo_path"
-               value={contactForm.values.img_logo_path}
+               name="img_logo_name"
+               value={contactForm.values.img_logo_name}
                onChange={contactForm.handleChange}
                error={
-                  contactForm.touched.img_logo_path &&
-                  contactForm.errors.img_logo_path !== undefined
+                  contactForm.touched.img_logo_name &&
+                  contactForm.errors.img_logo_name !== undefined
                }
-               helperText={contactForm.touched.img_logo_path && contactForm.errors.img_logo_path}
+               helperText={contactForm.touched.img_logo_name && contactForm.errors.img_logo_name}
                variant="outlined"
             />
          </Stack>
