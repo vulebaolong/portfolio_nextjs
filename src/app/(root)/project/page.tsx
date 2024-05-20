@@ -1,7 +1,7 @@
-import { getProjectsAction } from "@/actions/project.action";
+import { getProjectsAction, getTypeProjectsAction } from "@/actions/project.action";
 import Project from "@/components/root/project/Project";
 
 export default async function ProjectPage() {
    const dataProjects = await getProjectsAction();
-   return <Project dataProjects={dataProjects} />;
+   return <Project dataProjects={dataProjects}/>;
 }

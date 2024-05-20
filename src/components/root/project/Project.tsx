@@ -1,13 +1,11 @@
 "use client";
 
 import ParticlesColors from "@/common/particles/ParticlesColors";
-import { Box, Chip, Container, Stack, Typography, useColorScheme } from "@mui/material";
-import Image from "next/image";
-import GlowCard from "./GlowCard";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
+import { TProject, TTypeProject } from "@/types/respon/project.type";
+import { Box, Container, Typography, useColorScheme } from "@mui/material";
 import { useEffect } from "react";
 import ProjectItem from "./ProjectItem";
-import { TProject } from "@/types/respon/project.type";
 
 const basePath = `/images/project/`;
 

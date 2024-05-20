@@ -1,23 +1,21 @@
 "use client";
 
-import ProjectItem from "@/components/root/project/ProjectItem";
-import { ROUTER } from "@/constants/router.constant";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import { Box, Drawer, IconButton, Typography } from "@mui/material";
-import Link from "next/link";
-import { useState } from "react";
-import MyProjectCreate from "./MyProjectCreate";
 import DrawerMyProjectCreate from "@/common/drawers/DrawerMyProjectCreate";
 import DrawerMyProjectEdit from "@/common/drawers/DrawerMyProjectEdit";
-import { TProject } from "@/types/respon/project.type";
+import ProjectItem from "@/components/root/project/ProjectItem";
+import { TProject, TTypeProject } from "@/types/respon/project.type";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import { Box, IconButton } from "@mui/material";
+import { useState } from "react";
 
 const basePath = `/images/project/`;
 
 type TProps = {
    dataProjects: TResonAction<TProject[] | null>;
+   dataTypeProjects: TResonAction<TTypeProject[] | null>;
 };
 
-export default function MyProject({ dataProjects }: TProps) {
+export default function MyProject({ dataProjects, dataTypeProjects }: TProps) {
    const [openDrawerMyProjectCreate, setOpenDrawerMyProjectCreate] = useState(false);
    const handleCloseDrawerMyProjectCreate = () => setOpenDrawerMyProjectCreate(false);
    const handleOpenDrawerMyProjectCreate = () => setOpenDrawerMyProjectCreate(true);
@@ -65,12 +63,14 @@ export default function MyProject({ dataProjects }: TProps) {
          <DrawerMyProjectCreate
             handleCloseDrawerMyProjectCreate={handleCloseDrawerMyProjectCreate}
             openDrawerMyProjectCreate={openDrawerMyProjectCreate}
+            dataTypeProjects={dataTypeProjects}
          />
          {dataMyProjectEdit && (
             <DrawerMyProjectEdit
                handleCloseDrawerMyProjectEdit={handleCloseDrawerMyProjectEdit}
                openDrawerMyProjectEdit={openDrawerMyProjectEdit}
                dataMyProjectEdit={dataMyProjectEdit}
+               dataTypeProjects={dataTypeProjects}
             />
          )}
       </>

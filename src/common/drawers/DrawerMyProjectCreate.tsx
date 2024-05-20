@@ -1,6 +1,10 @@
 "use client";
 
 import { createProjectAction } from "@/actions/project.action";
+import { FB_FOLDER_LOGO, FB_FOLDER_PROJECT } from "@/constants/firebase.constant";
+import { isFileSizeValid } from "@/helpers/function.helper";
+import { deleteWithFirebase, uploadWithFirebase } from "@/libs/firebase.lib";
+import { TPayloadProject, TTypeProject } from "@/types/respon/project.type";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -20,10 +24,6 @@ import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import PreviewImage from "./PreviewImage";
-import { uploadWithFirebase } from "@/libs/firebase.lib";
-import { isExtImage, isFileSizeValid } from "@/helpers/function.helper";
-import { TPayloadProject, TProject } from "@/types/respon/project.type";
-import { FB_FOLDER_LOGO, FB_FOLDER_PROJECT } from "@/constants/firebase.constant";
 
 const currencies = [
    {
@@ -39,6 +39,7 @@ const currencies = [
 type TProps = {
    openDrawerMyProjectCreate: boolean;
    handleCloseDrawerMyProjectCreate: () => void;
+   dataTypeProjects: TResonAction<TTypeProject[] | null>;
 };
 
 const heightHeader = `70px`;
@@ -47,12 +48,13 @@ const heightFooter = `80px`;
 export default function DrawerMyProjectCreate({
    openDrawerMyProjectCreate,
    handleCloseDrawerMyProjectCreate,
+   dataTypeProjects,
 }: TProps) {
    const [loading, setLoading] = useState<boolean>(false);
    const [fileImgProject, setFileImgProject] = useState<File | null>(null);
    const [fileImgLogo, setFileImgLogo] = useState<File | null>(null);
 
-   const contactForm = useFormik({
+   const createProjectForm = useFormik({
       initialValues: {
          title: ``,
          description: ``,
@@ -66,8 +68,8 @@ export default function DrawerMyProjectCreate({
          description: Yup.string().trim().required(`Description is required`),
          platform: Yup.string().trim().required(`Platform is required`),
          type: Yup.string().trim().required(`Type is required`),
-         // imgProject: Yup.string().trim().required(`Image project is required`),
-         // imgLogo: Yup.string().trim().required(`Image logo is required`),
+         imgProject: Yup.string().trim().required(`Image project is required`),
+         imgLogo: Yup.string().trim().required(`Image logo is required`),
       }),
       onSubmit: async (valuesRaw) => {
          console.log(valuesRaw);
@@ -96,12 +98,16 @@ export default function DrawerMyProjectCreate({
          };
 
          const result = await createProjectAction(payload);
-         console.log(result);
          setLoading(false);
 
-         if (!result.status) return toast.error(result.message);
+         if (!result.status) {
+            deleteWithFirebase(imgProjectName, FB_FOLDER_PROJECT);
+            deleteWithFirebase(imgLogoName, FB_FOLDER_LOGO);
+            toast.error(result.message);
+            return;
+         }
 
-         contactForm.resetForm();
+         createProjectForm.resetForm();
          setFileImgProject(null);
          setFileImgLogo(null);
          handleCloseDrawerMyProjectCreate();
@@ -121,7 +127,7 @@ export default function DrawerMyProjectCreate({
             role="presentation"
             component="form"
             autoComplete="false"
-            // onSubmit={contactForm.handleSubmit}
+            // onSubmit={createProjectForm.handleSubmit}
          >
             {/* header */}
             <Stack
@@ -150,10 +156,12 @@ export default function DrawerMyProjectCreate({
                   autoComplete="title"
                   label="Title"
                   name="title"
-                  value={contactForm.values.title}
-                  onChange={contactForm.handleChange}
-                  error={contactForm.touched.title && contactForm.errors.title !== undefined}
-                  helperText={contactForm.touched.title && contactForm.errors.title}
+                  value={createProjectForm.values.title}
+                  onChange={createProjectForm.handleChange}
+                  error={
+                     createProjectForm.touched.title && createProjectForm.errors.title !== undefined
+                  }
+                  helperText={createProjectForm.touched.title && createProjectForm.errors.title}
                   variant="outlined"
                />
 
@@ -163,10 +171,15 @@ export default function DrawerMyProjectCreate({
                   autoComplete="platform"
                   label="Platform"
                   name="platform"
-                  value={contactForm.values.platform}
-                  onChange={contactForm.handleChange}
-                  error={contactForm.touched.platform && contactForm.errors.platform !== undefined}
-                  helperText={contactForm.touched.platform && contactForm.errors.platform}
+                  value={createProjectForm.values.platform}
+                  onChange={createProjectForm.handleChange}
+                  error={
+                     createProjectForm.touched.platform &&
+                     createProjectForm.errors.platform !== undefined
+                  }
+                  helperText={
+                     createProjectForm.touched.platform && createProjectForm.errors.platform
+                  }
                   variant="outlined"
                />
 
@@ -176,14 +189,16 @@ export default function DrawerMyProjectCreate({
                   select
                   label="Type"
                   name="type"
-                  onChange={contactForm.handleChange}
-                  value={contactForm.values.type}
-                  error={contactForm.touched.type && contactForm.errors.type !== undefined}
-                  helperText={contactForm.touched.type && contactForm.errors.type}
+                  onChange={createProjectForm.handleChange}
+                  value={createProjectForm.values.type}
+                  error={
+                     createProjectForm.touched.type && createProjectForm.errors.type !== undefined
+                  }
+                  helperText={createProjectForm.touched.type && createProjectForm.errors.type}
                >
-                  {currencies.map((option) => (
-                     <MenuItem key={option.value} value={option.value}>
-                        {option.label}
+                  {dataTypeProjects?.data?.map((option) => (
+                     <MenuItem key={option._id.toString()} value={option.type}>
+                        {option.type}
                      </MenuItem>
                   ))}
                </TextField>
@@ -196,17 +211,21 @@ export default function DrawerMyProjectCreate({
                   autoComplete="description"
                   label="Description"
                   name="description"
-                  value={contactForm.values.description}
-                  onChange={contactForm.handleChange}
+                  value={createProjectForm.values.description}
+                  onChange={createProjectForm.handleChange}
                   error={
-                     contactForm.touched.description && contactForm.errors.description !== undefined
+                     createProjectForm.touched.description &&
+                     createProjectForm.errors.description !== undefined
                   }
-                  helperText={contactForm.touched.description && contactForm.errors.description}
+                  helperText={
+                     createProjectForm.touched.description && createProjectForm.errors.description
+                  }
                   variant="outlined"
                />
 
                <Divider />
 
+               {/* img project */}
                <Box>
                   <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
                      Image Project
@@ -229,7 +248,7 @@ export default function DrawerMyProjectCreate({
                            if (e.target.files && e.target.files.length > 0) {
                               const file = e.target.files[0];
                               setFileImgProject(file);
-                              contactForm.setFieldValue("imgProject", file.name);
+                              createProjectForm.setFieldValue("imgProject", file.name);
                            }
                         }}
                      />
@@ -241,17 +260,19 @@ export default function DrawerMyProjectCreate({
                      <FormHelperText
                         sx={{ px: `14px` }}
                         error={
-                           contactForm.touched.imgProject &&
-                           contactForm.errors.imgProject !== undefined
+                           createProjectForm.touched.imgProject &&
+                           createProjectForm.errors.imgProject !== undefined
                         }
                      >
-                        {contactForm.touched.imgProject && contactForm.errors.imgProject}
+                        {createProjectForm.touched.imgProject &&
+                           createProjectForm.errors.imgProject}
                      </FormHelperText>
                   )}
                </Box>
 
                <Divider />
 
+               {/* img logo */}
                <Box>
                   <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
                      Image Logo
@@ -274,7 +295,7 @@ export default function DrawerMyProjectCreate({
                            if (e.target.files && e.target.files.length > 0) {
                               const file = e.target.files[0];
                               setFileImgLogo(file);
-                              contactForm.setFieldValue("imgLogo", file.name);
+                              createProjectForm.setFieldValue("imgLogo", file.name);
                            }
                         }}
                      />
@@ -286,10 +307,11 @@ export default function DrawerMyProjectCreate({
                      <FormHelperText
                         sx={{ px: `14px` }}
                         error={
-                           contactForm.touched.imgLogo && contactForm.errors.imgLogo !== undefined
+                           createProjectForm.touched.imgLogo &&
+                           createProjectForm.errors.imgLogo !== undefined
                         }
                      >
-                        {contactForm.touched.imgLogo && contactForm.errors.imgLogo}
+                        {createProjectForm.touched.imgLogo && createProjectForm.errors.imgLogo}
                      </FormHelperText>
                   )}
                </Box>
@@ -308,7 +330,7 @@ export default function DrawerMyProjectCreate({
 
                <LoadingButton
                   onClick={() => {
-                     contactForm.handleSubmit();
+                     createProjectForm.handleSubmit();
                   }}
                   // type="submit"
                   loading={loading}
