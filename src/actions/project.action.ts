@@ -3,8 +3,8 @@
 import { ROUTER } from "@/constants/router.constant";
 import { responAction } from "@/helpers/function.helper";
 import MongooseClient from "@/libs/mongodb.lib";
-import Projects from "@/models/project.model";
 import TypeProjects from "@/models/type-project.model";
+import Projects from "@/models/project.model";
 import {
    TPayloadEditProject,
    TPayloadProject,
@@ -30,10 +30,12 @@ export const getProjectsAction = async (): Promise<TResonAction<TProject[] | nul
    try {
       await MongooseClient();
 
-      const projects = await Projects.find().lean();
+      const projects = await Projects.find().populate('type').lean();
 
       return responAction(true, projects as any, `successfuly`);
    } catch (error: any) {
+      console.log(error);
+
       return responAction(false, null, error.message);
    }
 };

@@ -3,12 +3,8 @@
 import { deleteProjectAction, updateProjectAction } from "@/actions/project.action";
 import { FB_BASE, FB_FOLDER_LOGO, FB_FOLDER_PROJECT } from "@/constants/firebase.constant";
 import { deleteWithFirebase, uploadWithFirebase } from "@/libs/firebase.lib";
-import {
-   TPayloadEditProject,
-   TPayloadProject,
-   TProject,
-   TTypeProject,
-} from "@/types/respon/project.type";
+import { TPayloadEditProject, TProject, TTypeProject } from "@/types/respon/project.type";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -26,12 +22,11 @@ import {
    Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
+import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import PreviewImage from "./PreviewImage";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Image from "next/image";
 
 const currencies = [
    {
@@ -72,7 +67,7 @@ export default function DrawerMyProjectEdit({
          title: dataMyProjectEdit.title,
          description: dataMyProjectEdit.description,
          platform: dataMyProjectEdit.platform,
-         type: dataMyProjectEdit.type,
+         type: dataMyProjectEdit.type._id.toString(),
          imgProject: dataMyProjectEdit.img_project_name,
          imgLogo: dataMyProjectEdit.img_logo_name,
       },
@@ -247,7 +242,7 @@ export default function DrawerMyProjectEdit({
                   helperText={editProjectForm.touched.type && editProjectForm.errors.type}
                >
                   {dataTypeProjects?.data?.map((option) => (
-                     <MenuItem key={option._id.toString()} value={option.type}>
+                     <MenuItem key={option._id.toString()} value={option._id.toString()}>
                         {option.type}
                      </MenuItem>
                   ))}

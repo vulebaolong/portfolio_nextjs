@@ -28,14 +28,12 @@ export default function MyProject({ dataProjects, dataTypeProjects }: TProps) {
 
    return (
       <>
-         <IconButton
-            onClick={handleOpenDrawerMyProjectCreate}
-            size="large"
-            sx={{ position: `fixed`, zIndex: `10`, bottom: `20px`, right: `20px` }}
-            color="info"
-         >
-            <AddCircleOutlineRoundedIcon />
-         </IconButton>
+         <Box sx={{ position: `fixed`, zIndex: `10`, bottom: `20px`, right: `20px` }}>
+            <IconButton onClick={handleOpenDrawerMyProjectCreate} size="large" color="info">
+               <AddCircleOutlineRoundedIcon />
+            </IconButton>
+         </Box>
+
          <Box
             sx={{
                display: `grid`,

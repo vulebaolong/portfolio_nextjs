@@ -1,7 +1,7 @@
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import VerticalSplitRoundedIcon from '@mui/icons-material/VerticalSplitRounded';
 import { ROUTER } from "./router.constant";
 
 export const LIST_NAV = [
@@ -21,6 +21,12 @@ export const LIST_NAV = [
       title: `Contract`,
       path: ROUTER.ADMIN.CONTRACT,
       icon: <EmailRoundedIcon />,
+      childrens: [],
+   },
+   {
+      title: `Text in page`,
+      path: ROUTER.ADMIN.TEXT_IN_PAGE,
+      icon: <VerticalSplitRoundedIcon />,
       childrens: [],
    },
 ];

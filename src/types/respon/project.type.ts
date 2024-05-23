@@ -9,7 +9,7 @@ export type TProject = {
    _id: ObjectId;
    title: string;
    description: string;
-   type: string;
+   type: { _id: ObjectId; type: string };
    platform: string;
    img_project_name: string;
    img_logo_name: string;

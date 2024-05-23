@@ -68,8 +68,8 @@ export default function DrawerMyProjectCreate({
          description: Yup.string().trim().required(`Description is required`),
          platform: Yup.string().trim().required(`Platform is required`),
          type: Yup.string().trim().required(`Type is required`),
-         imgProject: Yup.string().trim().required(`Image project is required`),
-         imgLogo: Yup.string().trim().required(`Image logo is required`),
+         // imgProject: Yup.string().trim().required(`Image project is required`),
+         // imgLogo: Yup.string().trim().required(`Image logo is required`),
       }),
       onSubmit: async (valuesRaw) => {
          console.log(valuesRaw);
@@ -197,7 +197,7 @@ export default function DrawerMyProjectCreate({
                   helperText={createProjectForm.touched.type && createProjectForm.errors.type}
                >
                   {dataTypeProjects?.data?.map((option) => (
-                     <MenuItem key={option._id.toString()} value={option.type}>
+                     <MenuItem key={option._id.toString()} value={option._id.toString()}>
                         {option.type}
                      </MenuItem>
                   ))}

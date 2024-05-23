@@ -13,5 +13,6 @@ export const ROUTER = {
       ABOUT: `/admin/about`,
       MY_PROJECT: `/admin/my-project`,
       CONTRACT: `/admin/contract`,
+      TEXT_IN_PAGE: `/admin/text-in-page`,
    },
 };

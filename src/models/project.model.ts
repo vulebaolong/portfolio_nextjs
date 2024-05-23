@@ -1,4 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import TypeProjects from "./type-project.model";
+
+// console.log(TypeProjects.modelName);
+// console.log(TypeProjects.collection.name);
 
 const DOCUMENT_NAME = "Project";
 const COLLECTION_NAME = "Projects";
@@ -15,9 +19,9 @@ const projectSchema = new mongoose.Schema(
          required: true,
       },
       type: {
-         type: String,
+         type: Schema.ObjectId,
+         ref: TypeProjects.modelName,
          required: true,
-         enum: ["Fe Development", "Be Development"],
       },
       platform: {
          type: String,
