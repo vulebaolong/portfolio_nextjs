@@ -2,6 +2,7 @@
 
 import ParticlesLinks from "@/common/particles/ParticlesLinks";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
+import { TTextInPage } from "@/types/respon/text-in-page.type";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 import { Box, Button, Container, Stack, Typography, useColorScheme } from "@mui/material";
@@ -12,7 +13,11 @@ import { useEffect } from "react";
 
 const basePath = `/images/home/`;
 
-export default function Home() {
+type TProps = {
+   dataTextInPage: TResonAction<TTextInPage | null>;
+};
+
+export default function Home({ dataTextInPage }: TProps) {
    const { mode, setMode } = useColorScheme();
    useEffect(() => {
       if (mode === `dark`) return;
@@ -81,7 +86,7 @@ export default function Home() {
                         fontWeight: "600",
                      }}
                   >
-                     Front End - Back End
+                     {dataTextInPage.data?.title.split("/")[0]}
                   </Typography>
                   <br />
                   <Typography
@@ -92,7 +97,7 @@ export default function Home() {
                         fontWeight: "600",
                      }}
                   >
-                     Web Developer
+                     {dataTextInPage.data?.title.split("/")[1]}
                   </Typography>
                </Typography>
 
@@ -107,9 +112,7 @@ export default function Home() {
                      color: "hsla(0,0%,100%,.6)",
                   }}
                >
-                  I&apos;m deeply passionate about coding, constantly striving to improve, and adept
-                  at creative problem-solving. Every day is a new opportunity to enhance my
-                  programming skills and create innovative solutions.
+                  {dataTextInPage.data?.description}
                </Typography>
 
                <Button

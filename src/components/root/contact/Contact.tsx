@@ -4,8 +4,13 @@ import { Box, Container, Typography, useColorScheme } from "@mui/material";
 import FormContact from "./FormContact";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
 import { useEffect } from "react";
+import { TTextInPage } from "@/types/respon/text-in-page.type";
 
-export default function Contact() {
+type TProps = {
+   dataTextInPage: TResonAction<TTextInPage | null>;
+};
+
+export default function Contact({ dataTextInPage }: TProps) {
    const { mode, setMode } = useColorScheme();
    useEffect(() => {
       if (mode === `dark`) return;
@@ -32,18 +37,18 @@ export default function Contact() {
                      mb: `50px`,
                   }}
                >
-                  Lets{" "}
+                  {dataTextInPage.data?.title.split(`/`)[0]}{" "}
                   <Box
                      sx={{
                         color: `#f44336`,
                      }}
                      component={`span`}
                   >
-                     connect.
+                     {dataTextInPage.data?.title.split(`/`)[1]}
                   </Box>
                </Typography>
 
-               <FormContact />
+               <FormContact dataTextInPage={dataTextInPage}/>
             </Box>
          </Container>
       </Box>

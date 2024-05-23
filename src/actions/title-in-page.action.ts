@@ -1,15 +1,10 @@
 "use server";
 
-import { ROUTER } from "@/constants/router.constant";
 import { responAction } from "@/helpers/function.helper";
 import MongooseClient from "@/libs/mongodb.lib";
-import Projects from "@/models/project.model";
 import TextInPages from "@/models/text-in-page.model";
-import {
-   TPayloadEditProject,
-   TProject
-} from "@/types/respon/project.type";
-import { TTextInPage } from "@/types/respon/text-in-page.type";
+import { TTextInPage, TTextInPageCreate } from "@/types/respon/text-in-page.type";
+import { ObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 export const getTextInPageAction = async (): Promise<TResonAction<TTextInPage[] | null>> => {
@@ -26,17 +21,54 @@ export const getTextInPageAction = async (): Promise<TResonAction<TTextInPage[] 
    }
 };
 
-export const updateProjectAction = async (
-   payload: TPayloadEditProject,
-   finallyCb?: () => void
-): Promise<TResonAction<TProject[] | null>> => {
+export const getTextInPageByPageAction = async (
+   page: string
+): Promise<TResonAction<TTextInPage | null>> => {
    try {
       await MongooseClient();
 
-      const updateProjects = await Projects.updateOne({ _id: payload._id }, payload);
+      const textInPage = await TextInPages.findOne({ page: page }).lean();
 
-      revalidatePath(`${ROUTER.PROJECT}`);
-      revalidatePath(`${ROUTER.ADMIN.MY_PROJECT}`);
+      return responAction(true, textInPage as any, `successfuly`);
+   } catch (error: any) {
+      console.log(error);
+
+      return responAction(false, null, error.message);
+   }
+};
+
+export const createTextInPageAction = async (
+   payload: TTextInPageCreate,
+   finallyCb?: () => void
+): Promise<TResonAction<TTextInPage | null>> => {
+   try {
+      await MongooseClient();
+
+      const newProjects = await TextInPages.create(payload);
+
+      revalidatePath(`/`);
+
+      return responAction(true, newProjects as any, `Create text in page successfuly`);
+   } catch (error: any) {
+      console.log(error);
+      return responAction(false, null, error.message);
+   } finally {
+      if (finallyCb) {
+         finallyCb();
+      }
+   }
+};
+
+export const updateTextInPageAction = async (
+   payload: TTextInPage,
+   finallyCb?: () => void
+): Promise<TResonAction<TTextInPage[] | null>> => {
+   try {
+      await MongooseClient();
+
+      const updateProjects = await TextInPages.updateOne({ _id: payload._id }, payload);
+
+      revalidatePath(`/`);
 
       return responAction(true, updateProjects as any, `Update project successfuly`);
    } catch (error: any) {
@@ -46,5 +78,23 @@ export const updateProjectAction = async (
       if (finallyCb) {
          finallyCb();
       }
+   }
+};
+
+export const deleteTextInPageAction = async (
+   textInPageId: ObjectId
+): Promise<TResonAction<null>> => {
+   try {
+      await MongooseClient();
+
+      const deleteResult = await TextInPages.deleteOne({ _id: textInPageId });
+      if (deleteResult.deletedCount === 0) throw new Error(`Delete failed`);
+
+      revalidatePath(`/`);
+
+      return responAction(true, null, `Delete text in page successfuly`);
+   } catch (error: any) {
+      console.log(error);
+      return responAction(false, null, error.message);
    }
 };

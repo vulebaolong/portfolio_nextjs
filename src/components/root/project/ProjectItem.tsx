@@ -11,7 +11,6 @@ type TProps = {
    index: number;
 };
 export default function ProjectItem({ project, index }: TProps) {
-
    return (
       <GlowCard identifier={`experience-${index + 1}`}>
          <Box
@@ -46,7 +45,10 @@ export default function ProjectItem({ project, index }: TProps) {
             </Box>
             <Box sx={{ p: `20px` }}>
                <Stack sx={{ flexDirection: `row`, alignItems: `center`, gap: `10px` }}>
-                  <Chip label={project.type.type} sx={{ backgroundColor: `rgb(128 128 128)` }} />
+                  <Chip
+                     label={project.type.type}
+                     sx={{ backgroundColor: `rgb(128 128 128)`, color: `rgba(255 255 255)` }}
+                  />
 
                   <Box
                      sx={{
@@ -73,6 +75,7 @@ export default function ProjectItem({ project, index }: TProps) {
                      mt: `20px`,
                      fontWeight: `700`,
                      fontSize: `20px`,
+                     color: `rgb(255 255 255)`,
                   }}
                >
                   {project.title}

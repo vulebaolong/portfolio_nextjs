@@ -2,18 +2,20 @@
 
 import ParticlesTriangles from "@/common/particles/ParticlesTriangles";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
+import { TTextInPage } from "@/types/respon/text-in-page.type";
 import { Box, Container, useColorScheme } from "@mui/material";
+import { useEffect } from "react";
 import Left from "./Left";
 import Right from "./Right";
-import { useEffect } from "react";
 
 const basePath = `/images/about/`;
 
 type TProps = {
    responInfoGitHubAction: TResonAction<TInfoGitHub>;
+   dataTextInPage: TResonAction<TTextInPage | null>;
 };
 
-export default function About({ responInfoGitHubAction }: TProps) {
+export default function About({ responInfoGitHubAction, dataTextInPage }: TProps) {
    const { data } = responInfoGitHubAction;
    const { mode, setMode } = useColorScheme();
    useEffect(() => {
@@ -42,7 +44,7 @@ export default function About({ responInfoGitHubAction }: TProps) {
                      minHeight: `0`,
                   }}
                >
-                  <Left data={data} />
+                  <Left data={data} dataTextInPage={dataTextInPage} />
                </Box>
 
                <Box

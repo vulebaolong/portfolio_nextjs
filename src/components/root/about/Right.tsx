@@ -315,7 +315,9 @@ const items = [
       ),
    },
 ];
-export default function Right() {
+
+type TProps = {};
+export default function Right({}: TProps) {
    const [status, setStatus] = useState(0);
    return (
       <>

@@ -11,15 +11,13 @@ import * as Yup from "yup";
 import { sendMailAction } from "@/actions/contract.action";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import { TTextInPage } from "@/types/respon/text-in-page.type";
 
-type FieldType = {
-   name?: string;
-   email?: string;
-   subject?: string;
-   message?: string;
+type TProps = {
+   dataTextInPage: TResonAction<TTextInPage | null>;
 };
 
-function FormContact() {
+function FormContact({ dataTextInPage }: TProps) {
    const [loading, setLoading] = useState<boolean>(false);
 
    const contactForm = useFormik({
@@ -149,7 +147,7 @@ function FormContact() {
                      component={`a`}
                      href="tel:0836789578"
                   >
-                     083 6789 578
+                     {dataTextInPage.data?.description.split(`/`)[0]}
                   </Box>
                </Stack>
                <Stack
@@ -170,9 +168,9 @@ function FormContact() {
                         "fontSize": `14px`,
                      }}
                      component={`a`}
-                     href="mailto:vulebaolong@gmail.com"
+                     href={`mailto:${dataTextInPage.data?.description.split(`/`)[1]}`}
                   >
-                     vulebaolong@gmail.com
+                     {dataTextInPage.data?.description.split(`/`)[1]}
                   </Box>
                </Stack>
             </Stack>

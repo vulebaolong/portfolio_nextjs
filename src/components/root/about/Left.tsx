@@ -1,14 +1,16 @@
 "use client";
 
+import { TTextInPage } from "@/types/respon/text-in-page.type";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import CountUp from "react-countup";
 
 type TProps = {
    data: TInfoGitHub;
+   dataTextInPage: TResonAction<TTextInPage | null>;
 };
 
-export default function Left({ data }: TProps) {
+export default function Left({ data, dataTextInPage }: TProps) {
    const daysDiff = dayjs().diff(data.created_at, "days");
    const yearsDiff = dayjs().diff(data.created_at, "years");
    const totalRepo = data.public_repos;
@@ -21,14 +23,14 @@ export default function Left({ data }: TProps) {
                fontWeight: `600`,
             }}
          >
-            About{" "}
+            {dataTextInPage.data?.title.split("/")[0]}{" "}
             <Box
                sx={{
                   color: `#f44336`,
                }}
                component={`span`}
             >
-               me.
+               {dataTextInPage.data?.title.split("/")[1]}
             </Box>
          </Typography>
 
@@ -40,9 +42,7 @@ export default function Left({ data }: TProps) {
                mt: `16px`,
             }}
          >
-            My determination shines through when I encounter challenges. I persistently invest time
-            in understanding and breaking problems into manageable steps, approaching each
-            difficulty as an opportunity for personal growth and advancement.
+            {dataTextInPage.data?.description}
          </Typography>
 
          <Stack

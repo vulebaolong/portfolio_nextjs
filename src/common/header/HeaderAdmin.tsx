@@ -34,7 +34,7 @@ export default function HeaderAdmin() {
                   lg: `calc(100vw - ${WIDTH_NAV})`,
                },
                borderStyle: `solid`,
-               borderColor: `rgba(204, 229, 255, 0.3)`,
+               borderColor: `rgba(var(--mui-palette-common-onBackgroundChannel) / 0.23)`,
                borderWidth: `0px 0px thin 0px`,
                backdropFilter: `blur(10px)`,
             }}

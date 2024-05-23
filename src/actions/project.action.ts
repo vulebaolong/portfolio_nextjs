@@ -43,7 +43,7 @@ export const getProjectsAction = async (): Promise<TResonAction<TProject[] | nul
 export const createProjectAction = async (
    payload: TPayloadProject,
    finallyCb?: () => void
-): Promise<TResonAction<TProject[] | null>> => {
+): Promise<TResonAction<TProject | null>> => {
    try {
       await MongooseClient();
 

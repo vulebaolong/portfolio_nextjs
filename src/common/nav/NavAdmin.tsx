@@ -32,7 +32,7 @@ export default function NavAdmin() {
             width: WIDTH_NAV,
             height: `100%`,
             borderStyle: `solid`,
-            borderColor: `rgba(204, 229, 255, 0.3)`,
+            borderColor: `rgba(var(--mui-palette-common-onBackgroundChannel) / 0.23)`,
             borderWidth: `0px thin 0px 0px`,
          }}
       >
@@ -43,7 +43,7 @@ export default function NavAdmin() {
                alignItems: `center`,
                justifyContent: `center`,
                borderStyle: `solid`,
-               borderColor: `rgba(204, 229, 255, 0.3)`,
+               borderColor: `rgba(var(--mui-palette-common-onBackgroundChannel) / 0.23)`,
                borderWidth: `0px 0px thin`,
             }}
          >

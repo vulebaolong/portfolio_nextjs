@@ -6,6 +6,7 @@ import { TProject, TTypeProject } from "@/types/respon/project.type";
 import { Box, Container, Typography, useColorScheme } from "@mui/material";
 import { useEffect } from "react";
 import ProjectItem from "./ProjectItem";
+import { TTextInPage } from "@/types/respon/text-in-page.type";
 
 const basePath = `/images/project/`;
 
@@ -50,8 +51,9 @@ const projects = [
 
 type TProps = {
    dataProjects: TResonAction<TProject[] | null>;
+   dataTextInPage: TResonAction<TTextInPage | null>;
 };
-export default function Project({ dataProjects }: TProps) {
+export default function Project({ dataProjects, dataTextInPage }: TProps) {
    const { mode, setMode } = useColorScheme();
    useEffect(() => {
       if (mode === `dark`) return;
@@ -76,14 +78,14 @@ export default function Project({ dataProjects }: TProps) {
                      fontWeight: `600`,
                   }}
                >
-                  My{" "}
+                  {dataTextInPage.data?.title.split(`/`)[0]}{" "}
                   <Box
                      sx={{
                         color: `#f44336`,
                      }}
                      component={`span`}
                   >
-                     projects.
+                     {dataTextInPage.data?.title.split(`/`)[1]}
                   </Box>
                </Typography>
 
@@ -95,7 +97,7 @@ export default function Project({ dataProjects }: TProps) {
                      mt: `16px`,
                   }}
                >
-                  I have selected and mentioned here some of my projects to share with you
+                  {dataTextInPage.data?.description}
                </Typography>
             </Box>
 
