@@ -25,6 +25,13 @@ export default function Home({ dataTextInPage }: TProps) {
       setMode(`dark`);
    }, [mode, setMode]);
 
+   const handleDownloadCv = () => {
+      window.open(
+         "https://drive.google.com/file/d/1kjlBbByUWDnSdj5kQHL57gK18BIuO7MO/view?usp=drive_link",
+         "_blank"
+      );
+   };
+
    return (
       <Box sx={{ ...styleBoxPage, pt: `90px` }}>
          <Container>
@@ -47,7 +54,7 @@ export default function Home({ dataTextInPage }: TProps) {
                         color: "hsla(0,0%,100%,.6)",
                         fontWeight: "400",
                         fontFamily: `var(--font-sora)`,
-                        marginRight: `10px`
+                        marginRight: `10px`,
                      }}
                   >
                      {"Hi, I am".split("").map((letter, index) => (
@@ -184,6 +191,7 @@ export default function Home({ dataTextInPage }: TProps) {
                </Typography> */}
 
                <Button
+                  onClick={handleDownloadCv}
                   variant="contained"
                   size="large"
                   sx={{
