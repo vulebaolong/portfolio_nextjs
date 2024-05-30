@@ -1,5 +1,6 @@
 "use client";
 
+import { letterVariant, sentenceVariant } from "@/common/framer-motion/animationVariants";
 import ParticlesLinks from "@/common/particles/ParticlesLinks";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
 import { TTextInPage } from "@/types/respon/text-in-page.type";
@@ -34,19 +35,31 @@ export default function Home({ dataTextInPage }: TProps) {
                }}
             >
                <Typography variant="h1">
-                  <Typography
-                     component={"span"}
-                     sx={{
+                  <motion.span
+                     variants={sentenceVariant}
+                     initial="initial"
+                     animate="animate"
+                     style={{
+                        overflow: `hidden`,
+                        whiteSpace: `pre`,
                         fontSize: "1.5rem",
                         lineHeight: "2",
                         color: "hsla(0,0%,100%,.6)",
                         fontWeight: "400",
-                        mr: "7px",
+                        fontFamily: `var(--font-sora)`,
+                        marginRight: `10px`
                      }}
                   >
-                     Hi, I am
-                  </Typography>
-
+                     {"Hi, I am".split("").map((letter, index) => (
+                        <motion.span
+                           key={`${letter}-${index}`}
+                           variants={letterVariant}
+                           style={{ position: `relative`, display: `inline-block` }}
+                        >
+                           {letter}
+                        </motion.span>
+                     ))}
+                  </motion.span>
                   <motion.span
                      style={{
                         WebkitTextFillColor: "transparent",
@@ -73,35 +86,90 @@ export default function Home({ dataTextInPage }: TProps) {
                <Typography
                   variant="h2"
                   sx={{
-                     // filter: "drop-shadow(0px 3px 10px rgba(250, 221, 220, 0.8))",
                      filter: "drop-shadow(0px 3px 10px rgba(255, 255, 255, 0.8))",
                   }}
                >
-                  <Typography
-                     component={"span"}
-                     sx={{
-                        mt: "1.25rem",
+                  <motion.span
+                     variants={sentenceVariant}
+                     initial="initial"
+                     animate="animate"
+                     style={{
+                        overflow: `hidden`,
+                        whiteSpace: `pre`,
+                        marginTop: "1.25rem",
                         fontSize: "60px",
                         lineHeight: "1.3",
                         fontWeight: "600",
                      }}
                   >
-                     {dataTextInPage.data?.title.split("/")[0]}
-                  </Typography>
+                     {dataTextInPage.data?.title
+                        .split("/")[0]
+                        .split("")
+                        .map((letter, index) => (
+                           <motion.span
+                              key={`${letter}-${index}`}
+                              variants={letterVariant}
+                              style={{ position: `relative`, display: `inline-block` }}
+                           >
+                              {letter}
+                           </motion.span>
+                        ))}
+                  </motion.span>
                   <br />
-                  <Typography
-                     component={"span"}
-                     sx={{
+                  <motion.span
+                     variants={sentenceVariant}
+                     initial="initial"
+                     animate="animate"
+                     style={{
+                        overflow: `hidden`,
+                        whiteSpace: `pre`,
+                        marginTop: "1.25rem",
                         fontSize: "60px",
                         lineHeight: "1.3",
                         fontWeight: "600",
                      }}
                   >
-                     {dataTextInPage.data?.title.split("/")[1]}
-                  </Typography>
+                     {dataTextInPage.data?.title
+                        .split("/")[1]
+                        .split("")
+                        .map((letter, index) => (
+                           <motion.span
+                              key={`${letter}-${index}`}
+                              variants={letterVariant}
+                              style={{ position: `relative`, display: `inline-block` }}
+                           >
+                              {letter}
+                           </motion.span>
+                        ))}
+                  </motion.span>
                </Typography>
 
-               <Typography
+               <motion.h3
+                  variants={sentenceVariant}
+                  initial="initial"
+                  animate="animate"
+                  style={{
+                     overflow: `hidden`,
+                     // whiteSpace: `pre`,
+                     marginTop: "2rem",
+                     lineHeight: "1.8",
+                     fontSize: "16px",
+                     fontWeight: "300",
+                     maxWidth: "36rem",
+                     color: "hsla(0,0%,100%,.6)",
+                  }}
+               >
+                  {dataTextInPage.data?.description.split("").map((letter, index) => (
+                     <motion.span
+                        key={`${letter}-${index}`}
+                        variants={letterVariant}
+                        style={{ position: `relative`, display: `inline-block` }}
+                     >
+                        {letter}
+                     </motion.span>
+                  ))}
+               </motion.h3>
+               {/* <Typography
                   variant="h3"
                   sx={{
                      mt: "2rem",
@@ -113,7 +181,7 @@ export default function Home({ dataTextInPage }: TProps) {
                   }}
                >
                   {dataTextInPage.data?.description}
-               </Typography>
+               </Typography> */}
 
                <Button
                   variant="contained"

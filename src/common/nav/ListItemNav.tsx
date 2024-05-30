@@ -23,7 +23,7 @@ export default function ListItemNav({ item, pl }: TProps) {
       }
       if (!isButtonHaveToggle) {
          if (pathname.slice(1) === item.path) return;
-         router.push(item.path);
+         router.push(item.path, { scroll: false });
       }
    };
 
