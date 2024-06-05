@@ -6,8 +6,4 @@ export type TTextInPage = {
    title: string;
    description: string;
 };
-export type TTextInPageCreate = {
-   page: string;
-   title: string;
-   description: string;
-};
+export type TTextInPageCreate = Omit<TTextInPage, "_id">;

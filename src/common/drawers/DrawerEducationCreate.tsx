@@ -1,6 +1,8 @@
 "use client";
 
+import { createEducationAction } from "@/actions/education.action";
 import { createTextInPageAction } from "@/actions/title-in-page.action";
+import { TEducationCreate } from "@/types/respon/education.type";
 import { TTextInPageCreate } from "@/types/respon/text-in-page.type";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -27,12 +29,10 @@ export default function DrawerEducationCreate({
    const createTextInPageForm = useFormik({
       enableReinitialize: true,
       initialValues: {
-         page: ``,
          title: ``,
          description: ``,
       },
       validationSchema: Yup.object().shape({
-         page: Yup.string().trim().required(`Page is required`),
          title: Yup.string().trim().required(`Name is required`),
          description: Yup.string().trim().required(`Description is required`),
       }),
@@ -41,25 +41,23 @@ export default function DrawerEducationCreate({
 
          setLoading(true);
 
-         const payload: TTextInPageCreate = {
-            page: valuesRaw.page,
+         const payload: TEducationCreate = {
             description: valuesRaw.description,
             title: valuesRaw.title,
          };
 
-         const result = await createTextInPageAction(payload);
+         const result = await createEducationAction(payload);
          console.log(result);
          setLoading(false);
 
          if (!result.status) return toast.error(result.message);
 
          handleCloseDrawerEducationCreate();
-         createTextInPageForm.resetForm()
+         createTextInPageForm.resetForm();
 
          toast.success(result.message);
       },
    });
-
 
    return (
       <Drawer
@@ -97,19 +95,6 @@ export default function DrawerEducationCreate({
                   overflowY: `auto`,
                }}
             >
-               {/* page */}
-               <TextField
-                  sx={{ width: `100%` }}
-                  autoComplete="page"
-                  label="Page"
-                  name="page"
-                  value={createTextInPageForm.values.page}
-                  onChange={createTextInPageForm.handleChange}
-                  error={createTextInPageForm.touched.page && createTextInPageForm.errors.page !== undefined}
-                  helperText={createTextInPageForm.touched.page && createTextInPageForm.errors.page}
-                  variant="outlined"
-               />
-
                {/* title */}
                <TextField
                   sx={{ width: `100%` }}
@@ -119,9 +104,12 @@ export default function DrawerEducationCreate({
                   value={createTextInPageForm.values.title}
                   onChange={createTextInPageForm.handleChange}
                   error={
-                     createTextInPageForm.touched.title && createTextInPageForm.errors.title !== undefined
+                     createTextInPageForm.touched.title &&
+                     createTextInPageForm.errors.title !== undefined
                   }
-                  helperText={createTextInPageForm.touched.title && createTextInPageForm.errors.title}
+                  helperText={
+                     createTextInPageForm.touched.title && createTextInPageForm.errors.title
+                  }
                   variant="outlined"
                />
 
@@ -140,7 +128,8 @@ export default function DrawerEducationCreate({
                      createTextInPageForm.errors.description !== undefined
                   }
                   helperText={
-                     createTextInPageForm.touched.description && createTextInPageForm.errors.description
+                     createTextInPageForm.touched.description &&
+                     createTextInPageForm.errors.description
                   }
                   variant="outlined"
                />

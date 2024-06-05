@@ -4,15 +4,27 @@ import CardBody from "@/common/card/CardBody";
 import CardContainer from "@/common/card/CardContainer";
 import CardHeader from "@/common/card/CardHeader";
 import DrawerEducationCreate from "@/common/drawers/DrawerEducationCreate";
+import DrawerEducationEdit from "@/common/drawers/DrawerEducationEdit";
 import { useDisclosure } from "@/hooks/useDisclosure";
+import { TEducation } from "@/types/respon/education.type";
 import { Button, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 
-export default function Education() {
+type TProps = {
+   dataEducations: TResonAction<TEducation[] | null>;
+};
+
+export default function Education({ dataEducations }: TProps) {
+   const [dataEducationEdit, setDataEducationEdit] = useState<TEducation | null>(null);
+
    const [
       openDrawerEducationCreate,
       handleCloseDrawerEducationCreate,
       handleOpenDrawerEducationCreate,
    ] = useDisclosure();
+
+   const [openDrawerEducationEdit, handleCloseDrawerEducationEdit, handleOpenDrawerEducationEdit] =
+      useDisclosure();
 
    return (
       <>
@@ -35,10 +47,10 @@ export default function Education() {
                </Stack>
             </CardHeader>
             <CardBody>
-               {Array.from({ length: 5 }, () => ``).map((_, i) => {
+               {dataEducations.data?.map((education) => {
                   return (
                      <Stack
-                        key={i}
+                        key={education._id.toString()}
                         sx={{
                            gap: `20px`,
                            p: `20px`,
@@ -46,18 +58,18 @@ export default function Education() {
                            border: `1px solid rgba(var(--mui-palette-common-onBackgroundChannel) / 0.23)`,
                            cursor: `pointer`,
                         }}
-                        // onClick={() => {
-                        //    handleOpenDrawerTextInPageEdit();
-                        //    setDataTextInPageEdit(textInPage);
-                        // }}
+                        onClick={() => {
+                           handleOpenDrawerEducationEdit();
+                           setDataEducationEdit(education);
+                        }}
                      >
                         <Typography sx={{ fontSize: `20px` }}>
-                           <span style={{ fontWeight: `700` }}>Page: </span>
-                           <span>title</span>
+                           <span style={{ fontWeight: `700` }}>Title: </span>
+                           <span>{education.title}</span>
                         </Typography>
                         <Typography sx={{ fontSize: `20px` }}>
-                           <span style={{ fontWeight: `700` }}>Title: </span>
-                           <span>description</span>
+                           <span style={{ fontWeight: `700` }}>Description: </span>
+                           <span>{education.description}</span>
                         </Typography>
                      </Stack>
                   );
@@ -68,6 +80,13 @@ export default function Education() {
             handleCloseDrawerEducationCreate={handleCloseDrawerEducationCreate}
             openDrawerEducationCreate={openDrawerEducationCreate}
          />
+         {/* {dataEducationEdit && (
+            <DrawerEducationEdit
+               dataEducationEdit={dataEducationEdit}
+               handleCloseDrawerEducationEdit={handleCloseDrawerEducationEdit}
+               openDrawerEducationEdit={openDrawerEducationEdit}
+            />
+         )} */}
       </>
    );
 }
