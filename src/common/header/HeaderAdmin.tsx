@@ -35,7 +35,7 @@ export default function HeaderAdmin() {
                },
                borderStyle: `solid`,
                borderColor: `rgba(var(--mui-palette-common-onBackgroundChannel) / 0.23)`,
-               borderWidth: `0px 0px thin 0px`,
+               borderWidth: `0px 0px thin`,
                backdropFilter: `blur(10px)`,
             }}
             component={`header`}

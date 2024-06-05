@@ -3,6 +3,7 @@
 import DrawerMyProjectCreate from "@/common/drawers/DrawerMyProjectCreate";
 import DrawerMyProjectEdit from "@/common/drawers/DrawerMyProjectEdit";
 import ProjectItem from "@/components/root/project/ProjectItem";
+import { useDisclosure } from "@/hooks/useDisclosure";
 import { TProject, TTypeProject } from "@/types/respon/project.type";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { Box, IconButton } from "@mui/material";
@@ -16,13 +17,14 @@ type TProps = {
 };
 
 export default function MyProject({ dataProjects, dataTypeProjects }: TProps) {
-   const [openDrawerMyProjectCreate, setOpenDrawerMyProjectCreate] = useState(false);
-   const handleCloseDrawerMyProjectCreate = () => setOpenDrawerMyProjectCreate(false);
-   const handleOpenDrawerMyProjectCreate = () => setOpenDrawerMyProjectCreate(true);
+   const [
+      openDrawerMyProjectCreate,
+      handleCloseDrawerMyProjectCreate,
+      handleOpenDrawerMyProjectCreate,
+   ] = useDisclosure();
 
-   const [openDrawerMyProjectEdit, setOpenDrawerMyProjectEdit] = useState(false);
-   const handleCloseDrawerMyProjectEdit = () => setOpenDrawerMyProjectEdit(false);
-   const handleOpenDrawerMyProjectEdit = () => setOpenDrawerMyProjectEdit(true);
+   const [openDrawerMyProjectEdit, handleCloseDrawerMyProjectEdit, handleOpenDrawerMyProjectEdit] =
+      useDisclosure();
 
    const [dataMyProjectEdit, setDataMyProjectEdit] = useState<TProject | null>(null);
 

@@ -13,15 +13,24 @@ export default function ListItemNav({ item, pl }: TProps) {
    const router = useRouter();
    const pathname = usePathname();
 
-   const [open, setOpen] = useState(pathname.includes(item.path));
+   const initOpen = (item: any) => {
+      if (item.childrens.length > 0) {
+         return item.childrens.some((chil: any) => {
+            return initOpen(chil);
+         });
+      } else {
+         return pathname.includes(item.path);
+      }
+   };
+
+   const [open, setOpen] = useState(initOpen(item));
 
    const isButtonHaveToggle = item.childrens.length > 0;
 
    const handleClick = () => {
       if (isButtonHaveToggle) {
          setOpen(!open);
-      }
-      if (!isButtonHaveToggle) {
+      } else {
          if (pathname.slice(1) === item.path) return;
          router.push(item.path, { scroll: false });
       }
@@ -32,7 +41,9 @@ export default function ListItemNav({ item, pl }: TProps) {
          <ListItemButton selected={pathname === item.path} onClick={handleClick} sx={{ pl: pl }}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.title} />
-            {item.childrens.length > 0 && <>{!open ? <NavigateNextIcon /> : <ExpandMore />}</>}
+            {item.childrens.length > 0 && (
+               <NavigateNextIcon sx={{ rotate: !open ? `0deg` : `90deg`, transition: `all .3s` }} />
+            )}
          </ListItemButton>
          {item.childrens.length > 0 && (
             <Collapse in={open} timeout="auto" unmountOnExit>

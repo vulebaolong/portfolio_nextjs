@@ -4,7 +4,7 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import VerticalSplitRoundedIcon from "@mui/icons-material/VerticalSplitRounded";
 import { ROUTER } from "./router.constant";
 import WorkspacePremiumRoundedIcon from "@mui/icons-material/WorkspacePremiumRounded";
-import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded";
 
 export const LIST_NAV = [
    {

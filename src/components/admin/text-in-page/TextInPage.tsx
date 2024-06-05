@@ -2,6 +2,7 @@
 
 import DrawerTextInPageCreate from "@/common/drawers/DrawerTextInPageCreate";
 import DrawerTextInPageEdit from "@/common/drawers/DrawerTextInPageEdit";
+import { useDisclosure } from "@/hooks/useDisclosure";
 import { TTextInPage } from "@/types/respon/text-in-page.type";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
@@ -13,13 +14,17 @@ type TProps = {
 export default function TextInPage({ dataTextInPage }: TProps) {
    const [dataTextInPageEdit, setDataTextInPageEdit] = useState<TTextInPage | null>(null);
 
-   const [openDrawerTextInPageEdit, setOpenDrawerTextInPageEdit] = useState(false);
-   const handleCloseDrawerTextInPageEdit = () => setOpenDrawerTextInPageEdit(false);
-   const handleOpenDrawerTextInPageEdit = () => setOpenDrawerTextInPageEdit(true);
+   const [
+      openDrawerTextInPageEdit,
+      handleCloseDrawerTextInPageEdit,
+      handleOpenDrawerTextInPageEdit,
+   ] = useDisclosure();
 
-   const [openDrawerTextInPageCreate, setOpenDrawerTextInPageCreate] = useState(false);
-   const handleCloseDrawerTextInPageCreate = () => setOpenDrawerTextInPageCreate(false);
-   const handleOpenDrawerTextInPageCreate = () => setOpenDrawerTextInPageCreate(true);
+   const [
+      openDrawerTextInPageCreate,
+      handleCloseDrawerTextInPageCreate,
+      handleOpenDrawerTextInPageCreate,
+   ] = useDisclosure();
 
    return (
       <>
