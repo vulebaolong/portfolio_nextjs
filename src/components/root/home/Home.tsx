@@ -3,6 +3,8 @@
 import { letterVariant, sentenceVariant } from "@/common/framer-motion/animationVariants";
 import ParticlesLinks from "@/common/particles/ParticlesLinks";
 import { styleBoxPage } from "@/common/styles/style-blobal.mui";
+import { URL_CV } from "@/constants/app.constant";
+import { effectText } from "@/helpers/motion.helper";
 import { TTextInPage } from "@/types/respon/text-in-page.type";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
@@ -26,11 +28,10 @@ export default function Home({ dataTextInPage }: TProps) {
    }, [mode, setMode]);
 
    const handleDownloadCv = () => {
-      window.open(
-         "https://drive.google.com/file/d/1kjlBbByUWDnSdj5kQHL57gK18BIuO7MO/view?usp=drive_link",
-         "_blank"
-      );
+      window.open(URL_CV, "_blank");
    };
+
+   console.log(dataTextInPage);
 
    return (
       <Box sx={{ ...styleBoxPage, pt: `90px` }}>
@@ -42,31 +43,16 @@ export default function Home({ dataTextInPage }: TProps) {
                }}
             >
                <Typography variant="h1">
-                  <motion.span
-                     variants={sentenceVariant}
-                     initial="initial"
-                     animate="animate"
-                     style={{
-                        overflow: `hidden`,
-                        whiteSpace: `pre`,
-                        fontSize: "1.5rem",
-                        lineHeight: "2",
-                        color: "hsla(0,0%,100%,.6)",
-                        fontWeight: "400",
-                        fontFamily: `var(--font-sora)`,
-                        marginRight: `10px`,
-                     }}
-                  >
-                     {"Hi, I am".split("").map((letter, index) => (
-                        <motion.span
-                           key={`${letter}-${index}`}
-                           variants={letterVariant}
-                           style={{ position: `relative`, display: `inline-block` }}
-                        >
-                           {letter}
-                        </motion.span>
-                     ))}
-                  </motion.span>
+                  {effectText(`Hi, I am`, {
+                     overflow: `hidden`,
+                     whiteSpace: `pre`,
+                     fontSize: "1.5rem",
+                     lineHeight: "2",
+                     color: "hsla(0,0%,100%,.6)",
+                     fontWeight: "400",
+                     fontFamily: `var(--font-sora)`,
+                     marginRight: `10px`,
+                  })}
                   <motion.span
                      style={{
                         WebkitTextFillColor: "transparent",
@@ -96,106 +82,43 @@ export default function Home({ dataTextInPage }: TProps) {
                      filter: "drop-shadow(0px 3px 10px rgba(255, 255, 255, 0.8))",
                   }}
                >
-                  <motion.span
-                     variants={sentenceVariant}
-                     initial="initial"
-                     animate="animate"
-                     style={{
-                        overflow: `hidden`,
-                        whiteSpace: `pre`,
-                        marginTop: "1.25rem",
-                        fontSize: "60px",
-                        lineHeight: "1.3",
-                        fontWeight: "600",
-                     }}
-                  >
-                     {dataTextInPage.data?.title
-                        .split("/")[0]
-                        .split("")
-                        .map((letter, index) => (
-                           <motion.span
-                              key={`${letter}-${index}`}
-                              variants={letterVariant}
-                              style={{ position: `relative`, display: `inline-block` }}
-                           >
-                              {letter}
-                           </motion.span>
-                        ))}
-                  </motion.span>
-                  <br />
-                  <motion.span
-                     variants={sentenceVariant}
-                     initial="initial"
-                     animate="animate"
-                     style={{
-                        overflow: `hidden`,
-                        whiteSpace: `pre`,
-                        marginTop: "1.25rem",
-                        fontSize: "60px",
-                        lineHeight: "1.3",
-                        fontWeight: "600",
-                     }}
-                  >
-                     {dataTextInPage.data?.title
-                        .split("/")[1]
-                        .split("")
-                        .map((letter, index) => (
-                           <motion.span
-                              key={`${letter}-${index}`}
-                              variants={letterVariant}
-                              style={{ position: `relative`, display: `inline-block` }}
-                           >
-                              {letter}
-                           </motion.span>
-                        ))}
-                  </motion.span>
-               </Typography>
-
-               <motion.h3
-                  variants={sentenceVariant}
-                  initial="initial"
-                  animate="animate"
-                  style={{
+                  {effectText(dataTextInPage.data?.title.split("/")[0] || ``, {
                      overflow: `hidden`,
                      // whiteSpace: `pre`,
-                     marginTop: "2rem",
-                     lineHeight: "1.8",
-                     fontSize: "16px",
-                     fontWeight: "300",
-                     maxWidth: "36rem",
-                     color: "hsla(0,0%,100%,.6)",
-                  }}
-               >
-                  {dataTextInPage.data?.description.split("").map((letter, index) => (
-                     <motion.span
-                        key={`${letter}-${index}`}
-                        variants={letterVariant}
-                        style={{ position: `relative`, display: `inline-block` }}
-                     >
-                        {letter}
-                     </motion.span>
-                  ))}
-               </motion.h3>
-               {/* <Typography
-                  variant="h3"
-                  sx={{
-                     mt: "2rem",
-                     lineHeight: "1.8",
-                     fontSize: "16px",
-                     fontWeight: "300",
-                     maxWidth: "36rem",
-                     color: "hsla(0,0%,100%,.6)",
-                  }}
-               >
-                  {dataTextInPage.data?.description}
-               </Typography> */}
+                     marginTop: "1.25rem",
+                     fontSize: "60px",
+                     lineHeight: "1.3",
+                     fontWeight: "600",
+                  })}
+
+                  <br />
+
+                  {effectText(dataTextInPage.data?.title.split("/")[1] || ``, {
+                     overflow: `hidden`,
+                     // whiteSpace: `pre`,
+                     marginTop: "1.25rem",
+                     fontSize: "60px",
+                     lineHeight: "1.3",
+                     fontWeight: "600",
+                  })}
+               </Typography>
+
+               {effectText(dataTextInPage.data?.description || ``, {
+                  overflow: `hidden`,
+                  marginTop: "2rem",
+                  lineHeight: "1.8",
+                  fontSize: "16px",
+                  fontWeight: "300",
+                  maxWidth: "36rem",
+                  color: "hsla(0,0%,100%,.6)",
+               })}
 
                <Button
                   onClick={handleDownloadCv}
                   variant="contained"
                   size="large"
                   sx={{
-                     "mt": "4rem",
+                     "mt": "2rem",
                      "filter": "drop-shadow(0px 3px 10px rgba(250, 221, 220, 0.3))",
                      "borderRadius": "999999px",
                      "textTransform": "capitalize",

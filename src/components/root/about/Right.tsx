@@ -28,6 +28,7 @@ import {
 import { BsLink45Deg } from "react-icons/bs";
 
 import { FaDocker } from "react-icons/fa";
+import { TEducation } from "@/types/respon/education.type";
 
 const items = [
    {
@@ -316,9 +317,12 @@ const items = [
    },
 ];
 
-type TProps = {};
-export default function Right({}: TProps) {
+type TProps = {
+   dataEducations: TResonAction<TEducation[] | null>;
+};
+export default function Right({ dataEducations }: TProps) {
    const [status, setStatus] = useState(0);
+
    return (
       <>
          <Stack
@@ -356,7 +360,29 @@ export default function Right({}: TProps) {
             }}
          >
             {status === 0 && items[`${status}`].info}
-            {status === 1 && items[`${status}`].info}
+
+            {status === 1 && (
+               <Stack gap={`20px`}>
+                  {dataEducations.data?.map((education) => {
+                     console.log(education);
+                     return (
+                        <Typography
+                           key={education._id.toString()}
+                           sx={{
+                              color: "hsla(0,0%,100%,.6)",
+                              fontSize: `16px`,
+                              lineHeight: `2`,
+                           }}
+                        >
+                           {education.title}
+                           <br />
+                           {education.description}
+                        </Typography>
+                     );
+                  })}
+               </Stack>
+            )}
+
             {status === 2 && items[`${status}`].info}
          </Box>
       </>

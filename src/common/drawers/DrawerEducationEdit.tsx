@@ -1,7 +1,8 @@
 "use client";
 
+import { deleteEducationAction, updateEducationAction } from "@/actions/education.action";
 import { deleteTextInPageAction, updateTextInPageAction } from "@/actions/title-in-page.action";
-import { TTextInPage } from "@/types/respon/text-in-page.type";
+import { TEducation } from "@/types/respon/education.type";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -23,7 +24,7 @@ import * as Yup from "yup";
 type TProps = {
    openDrawerEducationEdit: boolean;
    handleCloseDrawerEducationEdit: () => void;
-   dataEducationEdit: TTextInPage;
+   dataEducationEdit: TEducation;
 };
 
 const heightHeader = `70px`;
@@ -37,15 +38,13 @@ export default function DrawerEducationEdit({
    const [loading, setLoading] = useState<boolean>(false);
    const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
 
-   const editTextInPageForm = useFormik({
+   const editEducationForm = useFormik({
       enableReinitialize: true,
       initialValues: {
-         page: dataEducationEdit.page,
          title: dataEducationEdit.title,
          description: dataEducationEdit.description,
       },
       validationSchema: Yup.object().shape({
-         page: Yup.string().trim().required(`Page is required`),
          title: Yup.string().trim().required(`Name is required`),
          description: Yup.string().trim().required(`Description is required`),
       }),
@@ -54,16 +53,15 @@ export default function DrawerEducationEdit({
 
          setLoading(true);
 
-         const payload: TTextInPage = {
+         const payload: TEducation = {
             _id: dataEducationEdit._id,
-            page: valuesRaw.page,
             description: valuesRaw.description,
             title: valuesRaw.title,
          };
 
          console.log(payload);
 
-         const result = await updateTextInPageAction(payload);
+         const result = await updateEducationAction(payload);
          console.log(result);
          setLoading(false);
 
@@ -78,12 +76,12 @@ export default function DrawerEducationEdit({
    const handleDeleteTextInPage = async () => {
       setLoadingDelete(true);
 
-      const reuslt = await deleteTextInPageAction(dataEducationEdit._id);
+      const reuslt = await deleteEducationAction(dataEducationEdit._id);
       setLoadingDelete(false);
 
       if (reuslt.status === false) return toast.error(reuslt.message);
 
-      editTextInPageForm.resetForm();
+      editEducationForm.resetForm();
       handleCloseDrawerEducationEdit();
 
       toast.success(reuslt.message);
@@ -100,7 +98,7 @@ export default function DrawerEducationEdit({
             role="presentation"
             component="form"
             autoComplete="false"
-            onSubmit={editTextInPageForm.handleSubmit}
+            onSubmit={editEducationForm.handleSubmit}
          >
             {/* header */}
             <Stack
@@ -113,7 +111,7 @@ export default function DrawerEducationEdit({
                }}
             >
                <Typography sx={{ fontSize: `20px`, fontWeight: `700` }}>
-                  <span>Edit Text In Page </span>
+                  <span>Edit Education </span>
                   <span style={{ fontWeight: `400`, fontSize: `14px` }}>
                      - {dataEducationEdit._id.toString()}
                   </span>
@@ -137,31 +135,19 @@ export default function DrawerEducationEdit({
                   overflowY: `auto`,
                }}
             >
-               {/* page */}
-               <TextField
-                  sx={{ width: `100%` }}
-                  autoComplete="page"
-                  label="Page"
-                  name="page"
-                  value={editTextInPageForm.values.page}
-                  onChange={editTextInPageForm.handleChange}
-                  error={editTextInPageForm.touched.page && editTextInPageForm.errors.page !== undefined}
-                  helperText={editTextInPageForm.touched.page && editTextInPageForm.errors.page}
-                  variant="outlined"
-               />
-
                {/* title */}
                <TextField
                   sx={{ width: `100%` }}
                   autoComplete="title"
                   label="Title"
                   name="title"
-                  value={editTextInPageForm.values.title}
-                  onChange={editTextInPageForm.handleChange}
+                  value={editEducationForm.values.title}
+                  onChange={editEducationForm.handleChange}
                   error={
-                     editTextInPageForm.touched.title && editTextInPageForm.errors.title !== undefined
+                     editEducationForm.touched.title &&
+                     editEducationForm.errors.title !== undefined
                   }
-                  helperText={editTextInPageForm.touched.title && editTextInPageForm.errors.title}
+                  helperText={editEducationForm.touched.title && editEducationForm.errors.title}
                   variant="outlined"
                />
 
@@ -173,14 +159,14 @@ export default function DrawerEducationEdit({
                   autoComplete="description"
                   label="Description"
                   name="description"
-                  value={editTextInPageForm.values.description}
-                  onChange={editTextInPageForm.handleChange}
+                  value={editEducationForm.values.description}
+                  onChange={editEducationForm.handleChange}
                   error={
-                     editTextInPageForm.touched.description &&
-                     editTextInPageForm.errors.description !== undefined
+                     editEducationForm.touched.description &&
+                     editEducationForm.errors.description !== undefined
                   }
                   helperText={
-                     editTextInPageForm.touched.description && editTextInPageForm.errors.description
+                     editEducationForm.touched.description && editEducationForm.errors.description
                   }
                   variant="outlined"
                />
@@ -199,7 +185,7 @@ export default function DrawerEducationEdit({
 
                <LoadingButton
                   onClick={() => {
-                     editTextInPageForm.handleSubmit();
+                     editEducationForm.handleSubmit();
                   }}
                   loading={loading}
                   loadingPosition="end"

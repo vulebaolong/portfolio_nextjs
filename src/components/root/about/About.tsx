@@ -7,15 +7,17 @@ import { Box, Container, useColorScheme } from "@mui/material";
 import { useEffect } from "react";
 import Left from "./Left";
 import Right from "./Right";
+import { TEducation } from "@/types/respon/education.type";
 
 const basePath = `/images/about/`;
 
 type TProps = {
    responInfoGitHubAction: TResonAction<TInfoGitHub>;
    dataTextInPage: TResonAction<TTextInPage | null>;
+   dataEducations: TResonAction<TEducation[] | null>
 };
 
-export default function About({ responInfoGitHubAction, dataTextInPage }: TProps) {
+export default function About({ responInfoGitHubAction, dataTextInPage, dataEducations }: TProps) {
    const { data } = responInfoGitHubAction;
    const { mode, setMode } = useColorScheme();
    useEffect(() => {
@@ -55,7 +57,7 @@ export default function About({ responInfoGitHubAction, dataTextInPage }: TProps
                      },
                   }}
                >
-                  <Right />
+                  <Right dataEducations={dataEducations}/>
                </Box>
             </Box>
          </Container>

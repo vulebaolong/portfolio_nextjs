@@ -80,13 +80,13 @@ export default function Education({ dataEducations }: TProps) {
             handleCloseDrawerEducationCreate={handleCloseDrawerEducationCreate}
             openDrawerEducationCreate={openDrawerEducationCreate}
          />
-         {/* {dataEducationEdit && (
+         {dataEducationEdit && (
             <DrawerEducationEdit
                dataEducationEdit={dataEducationEdit}
                handleCloseDrawerEducationEdit={handleCloseDrawerEducationEdit}
                openDrawerEducationEdit={openDrawerEducationEdit}
             />
-         )} */}
+         )}
       </>
    );
 }
