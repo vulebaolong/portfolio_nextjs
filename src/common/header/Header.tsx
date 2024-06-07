@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Container, IconButton, Stack } from "@mui/material";
 import React from "react";
 import Logo from "../logo/Logo";
@@ -6,8 +8,11 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import KitesurfingIcon from "@mui/icons-material/Kitesurfing";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ROUTER } from "@/constants/router.constant";
 
 export default function Header() {
+   const router = useRouter();
    return (
       <Box
          sx={{
@@ -56,11 +61,16 @@ export default function Header() {
                         <LinkedInIcon />
                      </IconButton>
                   </Link>
-                  <Link href={"/admin"}>
-                     <IconButton>
-                        <KitesurfingIcon />
-                     </IconButton>
-                  </Link>
+                  <IconButton
+                     onClick={() => {
+                        router.push(ROUTER.ADMIN.HOME);
+                        setTimeout(() => { 
+                           window.location.reload()
+                         }, 500)
+                     }}
+                  >
+                     <KitesurfingIcon />
+                  </IconButton>
                </Box>
             </Stack>
          </Container>
