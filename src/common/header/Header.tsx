@@ -4,6 +4,7 @@ import Logo from "../logo/Logo";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import KitesurfingIcon from "@mui/icons-material/Kitesurfing";
 import Link from "next/link";
 
 export default function Header() {
@@ -11,7 +12,7 @@ export default function Header() {
       <Box
          sx={{
             position: `fixed`,
-            zIndex: `1`,
+            zIndex: `4`,
             width: `100%`,
             WebkitBackdropFilter: "blur(5px)",
             backdropFilter: "blur(5px)",
@@ -53,6 +54,11 @@ export default function Header() {
                   >
                      <IconButton>
                         <LinkedInIcon />
+                     </IconButton>
+                  </Link>
+                  <Link href={"/admin"}>
+                     <IconButton>
+                        <KitesurfingIcon />
                      </IconButton>
                   </Link>
                </Box>

@@ -12,7 +12,7 @@ export default async function LayoutLogin({ children }: { children: React.ReactN
          <div
             style={{
                padding: `50px`,
-               border: `1px solid rgba(255,255,255, 0.5)`,
+               border: `1px solid var(--mui-palette-colors-5)`,
                borderRadius: `20px`,
             }}
          >
