@@ -6,7 +6,7 @@ const COLLECTION_NAME = "Certifications";
 const certificationSchema = new mongoose.Schema(
    {
       title: { type: String, required: true, unique: true },
-      date: { type: String, required: true },
+      date: { type: Date, required: true },
       link: { type: String, required: true },
    },
    {

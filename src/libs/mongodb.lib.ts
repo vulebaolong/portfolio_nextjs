@@ -7,11 +7,11 @@ interface Connection {
 
 const connection: Connection = {};
 
-console.log(`process.env.MONGODB_URI: `, process.env.MONGODB_URI);
-console.log(`process.env.MONGODB_USER: `, process.env.MONGODB_USER);
-console.log(`process.env.MONGODB_PASSWORD: `, process.env.MONGODB_PASSWORD);
-console.log(`process.env.TOKEN_SECRET: `, process.env.TOKEN_SECRET);
-console.log(`process.env.TOKEN_EXPIRES: `, process.env.TOKEN_EXPIRES);
+// console.log(`process.env.MONGODB_URI: `, process.env.MONGODB_URI);
+// console.log(`process.env.MONGODB_USER: `, process.env.MONGODB_USER);
+// console.log(`process.env.MONGODB_PASSWORD: `, process.env.MONGODB_PASSWORD);
+// console.log(`process.env.TOKEN_SECRET: `, process.env.TOKEN_SECRET);
+// console.log(`process.env.TOKEN_EXPIRES: `, process.env.TOKEN_EXPIRES);
 
 const MongooseClient = async (): Promise<void> => {
    try {

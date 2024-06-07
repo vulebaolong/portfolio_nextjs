@@ -17,14 +17,9 @@ type TProps = {
 export default function Education({ dataEducations }: TProps) {
    const [dataEducationEdit, setDataEducationEdit] = useState<TEducation | null>(null);
 
-   const [
-      openDrawerEducationCreate,
-      handleCloseDrawerEducationCreate,
-      handleOpenDrawerEducationCreate,
-   ] = useDisclosure();
+   const [openDrawerEducationCreate, handleDrawerEducationCreate] = useDisclosure();
 
-   const [openDrawerEducationEdit, handleCloseDrawerEducationEdit, handleOpenDrawerEducationEdit] =
-      useDisclosure();
+   const [openDrawerEducationEdit, handleDrawerEducationEdit] = useDisclosure();
 
    return (
       <>
@@ -41,7 +36,7 @@ export default function Education({ dataEducations }: TProps) {
                   <Typography variant="h1" sx={{ fontSize: `30px`, fontWeight: `600` }}>
                      Education
                   </Typography>
-                  <Button onClick={handleOpenDrawerEducationCreate} variant="contained">
+                  <Button onClick={handleDrawerEducationCreate.open} variant="contained">
                      Create Education
                   </Button>
                </Stack>
@@ -59,7 +54,7 @@ export default function Education({ dataEducations }: TProps) {
                            cursor: `pointer`,
                         }}
                         onClick={() => {
-                           handleOpenDrawerEducationEdit();
+                           handleDrawerEducationEdit.open();
                            setDataEducationEdit(education);
                         }}
                      >
@@ -77,13 +72,13 @@ export default function Education({ dataEducations }: TProps) {
             </CardBody>
          </CardContainer>
          <DrawerEducationCreate
-            handleCloseDrawerEducationCreate={handleCloseDrawerEducationCreate}
+            handleCloseDrawerEducationCreate={handleDrawerEducationCreate.close}
             openDrawerEducationCreate={openDrawerEducationCreate}
          />
          {dataEducationEdit && (
             <DrawerEducationEdit
                dataEducationEdit={dataEducationEdit}
-               handleCloseDrawerEducationEdit={handleCloseDrawerEducationEdit}
+               handleCloseDrawerEducationEdit={handleDrawerEducationEdit.close}
                openDrawerEducationEdit={openDrawerEducationEdit}
             />
          )}

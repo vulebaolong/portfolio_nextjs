@@ -1,11 +1,7 @@
 "use server";
 
-import { EmailTemplate } from "@/common/email-templates/EmailTemplate";
 import { responAction } from "@/helpers/function.helper";
-import { Resend } from "resend";
 import nodemailer from "nodemailer";
-
-//ceip jrrg rgzr ufeh
 
 type TSendMailAction = {
    value: {
@@ -13,19 +9,21 @@ type TSendMailAction = {
       email: string;
       message: string;
    };
+   emailMe: string;
 };
-export const sendMailAction = async ({ value }: TSendMailAction): Promise<any> => {
+export const sendMailAction = async ({ value, emailMe }: TSendMailAction): Promise<TResonAction<any>> => {
+   console.log(process.env.APP_PASSWORD_GOOGLE);
    try {
       let transporter = nodemailer.createTransport({
          service: "gmail",
          auth: {
-            user: "vulebaolong@gmail.com",
-            pass: "ceipjrrgrgzrufeh",
+            user: emailMe,
+            pass: process.env.APP_PASSWORD_GOOGLE,
          },
       });
       let infoMail = {
-         from: "vulebaolong@gmail.com",
-         to: "vulebaolong@gmail.com",
+         from: emailMe,
+         to: emailMe,
          subject: `Portfolio - ${value.email}`,
          // text: text,
          html: `
@@ -48,6 +46,7 @@ export const sendMailAction = async ({ value }: TSendMailAction): Promise<any> =
 
       return responAction(true, data);
    } catch (error: any) {
+      console.log(error);
       return responAction(false, error);
    }
 };

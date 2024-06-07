@@ -8,16 +8,23 @@ import { useEffect } from "react";
 import Left from "./Left";
 import Right from "./Right";
 import { TEducation } from "@/types/respon/education.type";
+import { TCertification } from "@/types/respon/certification.type";
 
 const basePath = `/images/about/`;
 
 type TProps = {
    responInfoGitHubAction: TResonAction<TInfoGitHub>;
    dataTextInPage: TResonAction<TTextInPage | null>;
-   dataEducations: TResonAction<TEducation[] | null>
+   dataEducations: TResonAction<TEducation[] | null>;
+   dataCertification: TResonAction<TCertification[] | null>;
 };
 
-export default function About({ responInfoGitHubAction, dataTextInPage, dataEducations }: TProps) {
+export default function About({
+   responInfoGitHubAction,
+   dataTextInPage,
+   dataEducations,
+   dataCertification,
+}: TProps) {
    const { data } = responInfoGitHubAction;
    const { mode, setMode } = useColorScheme();
    useEffect(() => {
@@ -57,7 +64,7 @@ export default function About({ responInfoGitHubAction, dataTextInPage, dataEduc
                      },
                   }}
                >
-                  <Right dataEducations={dataEducations}/>
+                  <Right dataEducations={dataEducations} dataCertification={dataCertification} />
                </Box>
             </Box>
          </Container>

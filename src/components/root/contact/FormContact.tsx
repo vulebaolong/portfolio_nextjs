@@ -1,17 +1,16 @@
 "use client";
 
+import { sendMailAction } from "@/actions/contract.action";
+import { TTextInPage } from "@/types/respon/text-in-page.type";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
-import SendIcon from "@mui/icons-material/Send";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Box, Divider, Stack, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { sendMailAction } from "@/actions/contract.action";
-import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import { TTextInPage } from "@/types/respon/text-in-page.type";
 
 type TProps = {
    dataTextInPage: TResonAction<TTextInPage | null>;
@@ -38,10 +37,17 @@ function FormContact({ dataTextInPage }: TProps) {
          console.log(valuesRaw);
 
          setLoading(true);
-         const result = await sendMailAction({ value: valuesRaw });
+         const result = await sendMailAction({
+            value: valuesRaw,
+            emailMe: dataTextInPage.data?.description.split(`/`)[1] || `vulebaolong@gmail.com`,
+         });
          setLoading(false);
 
-         toast.success(`Thank you for reaching out! We'll get back to you shortly.`);
+         if (result.status) {
+            toast.success(`Thank you for reaching out! We'll get back to you shortly.`);
+         } else {
+            toast.warning(`Sorry, the system is under maintenance, please try again later`);
+         }
       },
    });
    return (
