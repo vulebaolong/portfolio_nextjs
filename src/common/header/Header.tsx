@@ -1,18 +1,13 @@
-"use client";
-
-import { Box, Container, IconButton, Stack } from "@mui/material";
-import React from "react";
-import Logo from "../logo/Logo";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import KitesurfingIcon from "@mui/icons-material/Kitesurfing";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ROUTER } from "@/constants/router.constant";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import KitesurfingIcon from "@mui/icons-material/Kitesurfing";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Box, Container, IconButton, Stack } from "@mui/material";
+import Link from "next/link";
+import Logo from "../logo/Logo";
 
 export default function Header() {
-   const router = useRouter();
    return (
       <Box
          sx={{
@@ -61,16 +56,11 @@ export default function Header() {
                         <LinkedInIcon />
                      </IconButton>
                   </Link>
-                  <IconButton
-                     onClick={() => {
-                        router.push(ROUTER.ADMIN.HOME);
-                        setTimeout(() => { 
-                           window.location.reload()
-                         }, 500)
-                     }}
-                  >
-                     <KitesurfingIcon />
-                  </IconButton>
+                  <a href={ROUTER.ADMIN.HOME}>
+                     <IconButton>
+                        <KitesurfingIcon />
+                     </IconButton>
+                  </a>
                </Box>
             </Stack>
          </Container>

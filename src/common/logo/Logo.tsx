@@ -1,11 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
-
-const basePath = `/images/`;
+import { ROUTER } from "@/constants/router.constant";
 
 export default function Logo() {
    return (
-      <Link href={"/"}>
+      <a href={ROUTER.HOME}>
          <svg
             version="1.2"
             xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +32,6 @@ export default function Logo() {
             />
             <path className="c" d="m371.7 66h-7.5v-7.9h7.5z" />
          </svg>
-      </Link>
+      </a>
    );
 }
